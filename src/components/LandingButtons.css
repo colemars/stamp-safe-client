@@ -31,9 +31,10 @@
   transform: translateY(90vh);
 }
 
-.ui.button {
+.landingButtons .ui.button {
   background: #ffffff none;
   animation: fadeColor 1.7s ease 3.1s 1 normal both;
+  color: rgb(60, 141, 188);
 }
 
 .wrapper {

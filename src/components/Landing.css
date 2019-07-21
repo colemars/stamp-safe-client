@@ -18,6 +18,12 @@
   justify-content: center;
 }
 
+.landing {
+  height: 100%;
+  width: 100%;
+  margin: auto;
+}
+
 body {
   animation: fadeBackgroundColor 3.9s ease 1s 1 normal both;
   background-color: #162131;

@@ -7,7 +7,7 @@ import logoWhite from './STAMPSAFE-white.svg';
 class Landing extends Component {
   render() {
     return (
-      <Fragment>
+      <div className="landing">
         <div className="logoWrapper">
           <img src={logoWhite} className="logo-white" alt="logo" />
           <img src={logoBlue} className="logo-blue" alt="logo" />  
@@ -15,7 +15,7 @@ class Landing extends Component {
         <div className="buttonWrapper">
         <LandingButtons />
         </div>
-      </Fragment>
+      </div>
     );
   }
 }
