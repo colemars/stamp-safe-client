@@ -14,7 +14,7 @@ export default class LandingButtons extends Component {
 
 
   routeChange(e) {
-    this.setState({navigateTo: `/${e.target.textContent}`})
+    this.setState({navigateTo: `/${e.target.textContent.toLowerCase()}`})
   }
   
   render() {
