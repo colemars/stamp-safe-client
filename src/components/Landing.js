@@ -1,20 +1,21 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import LandingButtons from "./LandingButtons.js";
 import "./Landing.css";
+import logoBlue from './STAMPSAFE.svg';
+import logoWhite from './STAMPSAFE-white.svg';
 
 class Landing extends Component {
   render() {
     return (
-      <div className="landing">
-        <div className="logo-wrapper">
-          <div id="logo">
-            STAMPSAFE
-          </div>
+      <Fragment>
+        <div className="logoWrapper">
+          <img src={logoWhite} className="logo-white" alt="logo" />
+          <img src={logoBlue} className="logo-blue" alt="logo" />  
         </div>
-        <div className="button-wrapper">
-          <LandingButtons />
+        <div className="buttonWrapper">
+        <LandingButtons />
         </div>
-      </div>
+      </Fragment>
     );
   }
 }
