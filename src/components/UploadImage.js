@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { Grid, Input, Header, Button, Divider, Icon } from 'semantic-ui-react'
 import "./UploadImage.css";
+import DragNDrop from './fileDragNDropUpload';
 
 export default () =>
   <div className="uploadImage">
@@ -18,11 +19,7 @@ export default () =>
       <Grid.Row className="uploadImageFooterRow">
         <Grid.Column>
           <div id="imageUploadWrapper">
-            <div id="imageUploadBox">
-              <div id="imageDrop">
-                Drop Images Here
-              </div>
-            </div>
+              <DragNDrop />
             <div id="chooseImageBox">
               <div id="imageChoice">
                 <Button icon>

@@ -4,18 +4,6 @@
   height: 100%;
 }
 
-.itemInputBox {
-  margin: auto;
-  width: 25vw;
-  text-align: center;
-  border-bottom: 1px solid rgba(34,36,38,0.15);
-}
-
-.itemInputBox .itemInput {
-  padding-bottom: 2%;
-  width: 95%;
-}
-
 #uploadImageFooter {
   font-family: Arial;
   font-size: 16px;
@@ -47,39 +35,23 @@
   height: 60vh;
   border: 1px solid rgba(34,36,38,0.15);
   border-radius: 6px;
-}
-
-#imageUploadBox{
-  margin: auto;
-  width: 100%;
-  height: 65%;
-  border-top: 5px solid rgb(255, 255, 255);
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
   border: none;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  background: rgb(79,169,185);
-  background: linear-gradient(229deg, rgba(79,169,185,0.7525385154061625) 24%, rgba(210,27,27,0.3267682072829131) 87%);
-}
-
-#imageDrop{
-  margin: auto;
-  border: 2px dashed rgba(255, 255, 255, 0.61);
-  border-radius: 6px;
-  padding: 20px;
-  color: rgba(255, 255, 255, 0.948);
-  font-weight: 800;
+  overflow: hidden;
+  box-shadow: 0 5px 10px 0 rgba(0,0,0,.2);
 }
 
 #chooseImageBox{
-  height: 30%;
+  height: 35%;
   padding-top: 15px;
   padding-bottom: 20px;
   align-content: center;
   justify-content: center;
   margin: auto;
+  /* border-bottom: 1px solid rgba(0, 0, 0, 1);
+  border-left: 1px solid rgba(0, 0, 0, 1);
+  border-right: 1px solid rgba(0, 0, 0, 1);
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px; */
 }
 
 #chooseImageBox .ui.input>input {
