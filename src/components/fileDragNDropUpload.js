@@ -49,12 +49,10 @@ const acceptBoxText = "Drop!"
 
 const rejectBoxText = "Invalid File Type"
 
-function StyledDropzone(props) {
+function Dropzone(props) {
   const onDrop = useCallback(acceptedFiles => {
     acceptedFiles.forEach(file => {
-      let blob = file.blob()
-      console.log(blob)
-      // props.addImage(file)
+      props.addImage(file)
     });
   }, [props])
   const {
@@ -98,4 +96,4 @@ const mapDispatchToProps = dispatch => ({
   addImage: image => dispatch(addImage(image))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(StyledDropzone)
+export default connect(mapStateToProps, mapDispatchToProps)(Dropzone)
