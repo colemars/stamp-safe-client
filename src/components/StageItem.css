@@ -30,7 +30,7 @@
 
 .stageItem .ui.button {
   margin: auto;
-  background: #E6E6E6 none;
+  /* background: #E6E6E6 none; */
   color: white;
   width: 25vw;
 }
