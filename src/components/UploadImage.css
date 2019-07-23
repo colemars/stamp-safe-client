@@ -42,22 +42,11 @@
 
 #chooseImageBox{
   height: 35%;
-  padding-top: 15px;
+  padding-top: 10px;
   padding-bottom: 20px;
   align-content: center;
   justify-content: center;
   margin: auto;
-  /* border-bottom: 1px solid rgba(0, 0, 0, 1);
-  border-left: 1px solid rgba(0, 0, 0, 1);
-  border-right: 1px solid rgba(0, 0, 0, 1);
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px; */
-}
-
-#chooseImageBox .ui.input>input {
-  background-color: rgb(50, 50, 50);
-  color: white;
-  font-size: 14px;
 }
 
 #imageChoice{
