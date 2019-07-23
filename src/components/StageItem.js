@@ -3,7 +3,6 @@ import { Grid, Input, Header, Button } from 'semantic-ui-react'
 import { Redirect } from 'react-router-dom';
 import "./StageItem.css";
 import { API } from "aws-amplify";
-import { thisExpression } from "@babel/types";
 
 const disabledButtonStyle = {
   backgroundColor: "#E6E6E6",
