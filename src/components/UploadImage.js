@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Grid, Input, Header, Button, Divider, Icon } from 'semantic-ui-react'
 import "./UploadImage.css";
 import DragNDrop from './fileDragNDropUpload';
