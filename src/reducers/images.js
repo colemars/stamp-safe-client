@@ -1,6 +1,5 @@
 import { ADD_IMAGE } from "../constants/action-types";
 
-
 const initialState = {
   images: []
 };
