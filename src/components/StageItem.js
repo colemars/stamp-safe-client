@@ -11,6 +11,8 @@ const disabledButtonStyle = {
   cursor: "default"
 }
 
+// add functionality so that, if user hits back button or re-navigates to his page AFTER hitting submit, the fields show the infomation already submitted and editing them will edit the already existing state instead of submitting a new state
+
 const StageItem = (props) => {
 
   const [loading, setLoading] = useState(null);
