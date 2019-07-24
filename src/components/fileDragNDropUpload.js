@@ -21,8 +21,7 @@ const containerStyle = {
 };
 
 const baseBoxStyle={
-  border:"2px dashed",
-  borderColor: "rgba(255, 255, 255, 0.5)",
+  border:"2px dashed rgba(255, 255, 255, 0.5)",
   borderRadius: "6px",
   margin: "auto",
   padding: "5%",
