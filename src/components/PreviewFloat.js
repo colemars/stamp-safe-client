@@ -1,65 +1,62 @@
-import React, { Fragment } from "react";
-import { connect } from 'react-redux';
-import { v4 } from 'uuid'
+import React, { useState } from "react";
 import "./PreviewFloat.css";
 
-const basestyle = {
+const baseStyle = {
   cursor: "pointer",
   position: "fixed",
-  left: "35vw",
-  top: "8rem",
   height: "5rem",
   width: "5rem",
   borderRadius: "25px",
   border: "3px solid rgb(255, 255, 255)"
 }
 
-const imgstyle = {
-  ...basestyle, boxShadow: "3px 5px 10px 2px rgba(52, 51, 51, 0.3)"
+const dimmerStyle = {
+  left: "0",
+  top: "0",
+  width: "100%",
+  height: "100%",
+  background: "#000000b8",
+  position: "fixed",
+  zIndex: 1,
+  transition: "background-color .2s linear",
+  WebkitTransition: "background-color .2s linear",
+  alignItems: "center",
+  verticalAlign: "middle",
+  justifyContent: "center"
 }
 
-const divstyle = {
-  ...basestyle, border: "0px solid rgb(255, 255, 255)",
-}
-
-const otherdivstyle = {
-  ...basestyle
+const buttonStyle = {
+  top: "18vh",
+  position: "fixed",
+  transform: "translateX(11rem)",
+  background: "#00000045",
+  color: "white",
 }
 
 const PreviewFloat = (props) => {
 
-  let leftPosition = 35;
+  const [expand, setExpand] = useState(false);
 
-  let topPosition = 8;
+  const previewStyle = {...baseStyle, ...{left: props.position.left, top: props.position.top}}
 
-  let preview = props.images.images.map((imageFile, index) => {
-    let objectURL = URL.createObjectURL(imageFile);
-    const newPos = { 
-      left: `${leftPosition}vw`,
-      top: `${topPosition}rem`
-    }
+  const expandStyle = {...baseStyle, ...{width: "25rem", zIndex: 1, cursor: "default", maxWidth: "100%", height: "auto", margin: "auto", position: "", display: "block", transform: "translateY(20vh)", border: "none"}}
 
-    leftPosition = leftPosition === 35 ? 34 : 35;
+  const style = expand ? expandStyle : previewStyle
 
-    topPosition += 5;
+  const display = expand ? {display: "none"} : null 
 
-    return (
-      <Fragment key={v4()}>
-        <img className="Preview" src={objectURL} style={{...imgstyle, ...newPos}} key={imageFile.name} alt="" />
-        <div className="PreviewOverlay" id="whiteOverlay" style={{...divstyle, ...newPos}} key={v4()}></div>
-        <div className="PreviewOverlay" id="blueOverlay" style={{...otherdivstyle, ...newPos}} key={v4()}></div>
-      </Fragment>
-    )
-  });
+  const dimmer = expand ? dimmerStyle : null
 
-  return(
-    preview
+  const button = expand ? buttonStyle : {display: "none"}
+
+  return (
+    <div onClick={e => setExpand(!expand)} style={dimmer}>
+      <img className="Preview" src={props.url} style={{ ...style, ...{boxShadow: "3px 5px 10px 2px rgba(52, 51, 51, 0.3)"} }} alt="" />
+      <div className="PreviewOverlay" id="whiteOverlay" style={{ ...style, ...{border: "0px solid rgb(255, 255, 255)", ...display} }}></div>
+      <div className="PreviewOverlay" id="blueOverlay" style={{...style, ...display}}></div>
+    </div>
   )
 }
 
-const mapStateToProps = state => ({
-  images: state.images
-})
-
-export default connect(mapStateToProps)(PreviewFloat)
+export default PreviewFloat
 
