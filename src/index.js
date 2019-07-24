@@ -12,37 +12,6 @@ const store = configureStore();
 
 configureAmplify();
 
-// async function test2() {
-
-//   Amplify.configure({
-//     Auth: {
-//       mandatorySignIn: false,
-//       region: config.cognito.REGION,
-//       identityPoolId: config.cognito.IDENTITY_POOL_ID,
-//     },
-//     Storage: {
-//       region: config.s3.REGION,
-//       bucket: config.s3.BUCKET,
-//       identityPoolId: config.cognito.IDENTITY_POOL_ID
-//     },
-//     API: {
-//       endpoints: [
-//         {
-//           name: "stage",
-//           endpoint: config.apiGateway.URL,
-//           region: config.apiGateway.REGION
-//         },
-//       ]
-//     }
-//   });
-
-//   const anonymousUser = await Auth.currentCredentials();
-
-//   console.log(anonymousUser)
-// }
-
-// test2();
-
 ReactDOM.render(
   <Provider store = {store}>
     <ConnectedRouter history={history}>
