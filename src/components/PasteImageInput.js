@@ -7,8 +7,6 @@ import config from '../config'
 import { v4 } from 'uuid'
 
 const style = {
-  backgroundColor: "rgb(50, 50, 50)",
-  color: "white",
   fontSize: "14px",
   width: "18vw",
   borderRadius: "6px",
