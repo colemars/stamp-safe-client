@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import {useDropzone} from 'react-dropzone';
 import { addImage } from '../actions/index'
 
-
 const containerStyle = {
   flex: 1,
   display: 'flex',
