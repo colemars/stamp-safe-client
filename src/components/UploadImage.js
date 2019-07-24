@@ -25,6 +25,8 @@ const disabledButtonStyle = {
     cursor: "default"}
 }
 
+//add limit for file uploads 
+
 const UploadImage = (props) => {
   console.log(props)
   let leftPosition = 35;
