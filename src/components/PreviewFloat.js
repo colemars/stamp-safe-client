@@ -39,7 +39,22 @@ const PreviewFloat = (props) => {
 
   const previewStyle = {...baseStyle, ...{left: props.position.left, top: props.position.top}}
 
-  const expandStyle = {...baseStyle, ...{width: "25rem", zIndex: 1, cursor: "default", maxWidth: "100%", height: "auto", margin: "auto", position: "", display: "block", transform: "translateY(20vh)", border: "none"}}
+  const expandStyle = {
+    ...baseStyle,
+    ...{
+      width: "25rem",
+      zIndex: 1,
+      cursor: "default",
+      maxWidth: "100%",
+      height: "auto",
+      margin: "auto",
+      position: "",
+      display: "block",
+      transform: "translateY(16vh)",
+      border: "none"
+    }
+  };
+  
 
   const style = expand ? expandStyle : previewStyle
 
