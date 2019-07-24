@@ -29,9 +29,13 @@
   color: rgba(49, 49, 49, 0.86)
 }
 
-#imageUploadWrapper{
+#ImageUploadDialog {
   margin: auto;
   width: 50%;
+  overflow: visible;
+}
+
+#imageUploadWrapper{
   height: 60vh;
   border: 1px solid rgba(34,36,38,0.15);
   border-radius: 6px;
