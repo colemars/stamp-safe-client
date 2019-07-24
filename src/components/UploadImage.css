@@ -11,8 +11,8 @@
 }
 
 .uploadImageFooterRow {
-  margin-bottom: 2vh;
-  margin-top: -2vh;
+  margin-bottom: 1rem;
+  margin-top: -1rem;
 }
 
 .uploadImage #imageChoice .ui.button {
@@ -31,12 +31,12 @@
 
 #ImageUploadDialog {
   margin: auto;
-  width: 50%;
+  width: 28rem;
   overflow: visible;
 }
 
 #imageUploadWrapper{
-  height: 60vh;
+  height: 31rem;
   border: 1px solid rgba(34,36,38,0.15);
   border-radius: 6px;
   border: none;
@@ -45,21 +45,23 @@
 }
 
 #chooseImageBox{
-  height: 35%;
-  padding-top: 10px;
-  padding-bottom: 20px;
+  height: 40%;
   align-content: center;
   justify-content: center;
+  display: flex;
   margin: auto;
+  flex-direction: column;
+  align-items: center;
 }
 
 #imageChoice{
-  margin: auto;
+  margin-top: -2rem;
 }
 
-#test{
-  padding-left: 60px;
-  padding-right: 60px;
+#divider{
+  padding-bottom: .4rem;
+  padding-left: 20%;
+  padding-right: 20%;
 }
 
 #uploadImageButton .ui.button {
