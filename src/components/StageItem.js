@@ -77,14 +77,15 @@ const StageItem = (props) => {
     //   setLoading(false);
     // }
   }
+  
+  let button = validateForm()
+  ? <Button fluid onClick={handleSubmit} style={{ backgroundColor: "#313131" }} content='Submit' />
+  : <Button fluid style={disabledButtonStyle} content='Submit' />
+  
   if (route) {
     return <Redirect push to='/upload' />
   }
-
-  let button = validateForm()
-    ? <Button fluid onClick={handleSubmit} style={{ backgroundColor: "#313131" }} content='Submit' />
-    : <Button fluid style={disabledButtonStyle} content='Submit' />
-    
+  
   return (
     <div className="stageItem">
       <Grid textAlign='center' columns={2}>
