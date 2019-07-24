@@ -55,7 +55,7 @@ export default class StageItem extends Component  {
   }
 
   routeChange() {
-    this.setState({navigateTo: `/imageupload`})
+    this.setState({navigateTo: `/upload`})
   }
 
   handleSubmit = async event => {
@@ -80,7 +80,7 @@ export default class StageItem extends Component  {
   
   render() {
     if (this.state.navigateTo.length > 0) {
-      return <Redirect push to='/uploadimage' />
+      return <Redirect push to='/upload' />
     }
     let test = this.validateForm() 
     ? <Button fluid onClick={this.handleSubmit} style={{backgroundColor: "#313131"}} content='Submit' />

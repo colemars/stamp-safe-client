@@ -9,6 +9,6 @@ export default () =>
   <Switch>
     <Route path="/" exact component={Landing} />
     <Route path="/buyer" exact component={Buyer} />
-    <Route path="/seller" exact component={Seller} />
-    <Route path="/uploadImage" exact component={UploadImage} />
+    <Route path="/stage" exact component={Seller} />
+    <Route path="/upload" exact component={UploadImage} />
   </Switch>;
