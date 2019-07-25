@@ -1,0 +1,48 @@
+.itemReview {
+  padding-top: 2rem;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+}
+
+.itemReviewInputBox {
+  margin: auto;
+  width: 26rem;
+  text-align: center;
+  padding-top: .3rem;
+  padding-bottom: .3rem;
+
+}
+
+.itemReviewInputBox .itemReviewInput {
+  /* padding-bottom: 1rem; */
+  width: 100%;
+}
+
+#itemReviewFooter {
+  font-family: Arial;
+  font-size: 16px;
+  color: rgba(89, 89, 89, 0.8);
+  width: 30rem;
+  margin: auto;
+}
+
+.itemReviewFooterRow {
+  margin-bottom: -1rem;
+  margin-top: -1rem;
+}
+
+.itemReview .ui.button {
+  margin: auto;
+  /* background: #E6E6E6 none; */
+  color: white;
+  width: 25vw;
+}
+
+.itemReview .ui.button:hover {
+  background: #313131  none;
+}
+
+.ui.header{
+  color: rgba(49, 49, 49, 0.86)
+}
