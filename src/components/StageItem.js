@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Grid, Input, Header, Button } from 'semantic-ui-react'
 import { Redirect } from 'react-router-dom';
 import "./StageItem.css";
-import { API } from "aws-amplify";
 import { connect } from 'react-redux';
 import { addFields } from '../actions/index'
 
@@ -14,8 +13,6 @@ const disabledButtonStyle = {
 // add functionality so that, if user hits back button or re-navigates to his page AFTER hitting submit, the fields show the infomation already submitted and editing them will edit the already existing state instead of submitting a new state
 
 const StageItem = (props) => {
-
-  const [loading, setLoading] = useState(null);
   const [serialNumber, setSerialNumber] = useState(null);
   const [make, setMake] = useState(null);
   const [model, setModel] = useState(null);
@@ -26,19 +23,13 @@ const StageItem = (props) => {
   const [route, setRoute] = useState(null);
 
   const validateForm = () => {
-    return serialNumber > 0 &&
-      make > 0 &&
-      model > 0 &&
-      yearManufactored > 0 &&
-      condition > 0 &&
-      previousOwners > 0 &&
-      price > 0;
-  }
-
-  const stageUpload = fields => {
-    return API.post("stage", "/stage", {
-      body: fields
-    });
+    return serialNumber &&
+      make &&
+      model &&
+      yearManufactored &&
+      condition &&
+      previousOwners &&
+      price
   }
 
   const routeChange = () => {
@@ -46,7 +37,7 @@ const StageItem = (props) => {
   }
 
   const handleSubmit = async () => {
-    const fields = [
+    props.addFields({
       serialNumber,
       make,
       model,
@@ -54,30 +45,8 @@ const StageItem = (props) => {
       condition,
       previousOwners,
       price
-    ]
-
-    props.addFields(fields)
-
+    })
     routeChange()
-
-    // setLoading(true);
-
-    // try {
-    //   await stageUpload({
-    //     serialNumber: serialNumber,
-    //     make: make,
-    //     model: model,
-    //     yearManufactored: yearManufactored,
-    //     conditionOfItem: condition,
-    //     previousOwners: previousOwners,
-    //     price: price
-    //   });
-    //   routeChange();
-    //   setLoading(false);
-    // } catch (e) {
-    //   alert(e);
-    //   setLoading(false);
-    // }
   }
   
   let button = validateForm()
