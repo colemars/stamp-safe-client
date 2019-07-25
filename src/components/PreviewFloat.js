@@ -26,20 +26,9 @@ const dimmerStyle = {
   justifyContent: "center"
 }
 
-const buttonStyle = {
-  top: "18vh",
-  position: "fixed",
-  transform: "translateX(11rem)",
-  background: "#00000045",
-  color: "white",
-}
-
 const PreviewFloat = (props) => {
-
   const [expand, setExpand] = useState(false);
-
   const previewStyle = {...baseStyle, ...{left: props.position.left, top: props.position.top}}
-
   const expandStyle = {
     ...baseStyle,
     ...{
@@ -56,14 +45,9 @@ const PreviewFloat = (props) => {
     }
   };
   
-
   const style = expand ? expandStyle : previewStyle
-
   const display = expand ? {display: "none"} : null 
-
   const dimmer = expand ? dimmerStyle : null
-
-  const button = expand ? buttonStyle : {display: "none"}
 
   return (
     <div onClick={e => setExpand(!expand)} style={dimmer}>
