@@ -7,7 +7,8 @@ const baseStyle = {
   height: "5rem",
   width: "5rem",
   borderRadius: "25px",
-  border: "3px solid rgb(255, 255, 255)"
+  border: "3px solid rgb(255, 255, 255)",
+  transform: "translateX(-16rem)",
 }
 
 const dimmerStyle = {
