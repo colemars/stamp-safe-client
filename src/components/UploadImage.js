@@ -1,13 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, Header, Button, Divider, Icon } from 'semantic-ui-react'
 import { Redirect } from 'react-router-dom';
 import "./UploadImage.css";
 import DragNDrop from './fileDragNDropUpload';
 import PasteImageInput from './PasteImageInput'
-import PreviewFloat from './PreviewFloat'
-import { v4 } from 'uuid'
+import PreviewFloat from './PreviewFloat';
+import v4 from "uuid";
 import { connect } from 'react-redux';
-
 
 const buttonStyle = {
   backgroundColor: "#313131",
@@ -22,41 +21,45 @@ const buttonStyle = {
 const disabledButtonStyle = {
   ...buttonStyle, ...{
     backgroundColor: "#E6E6E6",
-    cursor: "default"}
+    cursor: "default"
+  }
 }
 
-//add limit for file uploads 
+//TODO: add limit for file uploads 
 
 const UploadImage = (props) => {
-  console.log(props)
-  let leftPosition = 35;
+  const [route, setRoute] = useState(null);
+  let leftPosition = 50;
   let topPosition = 8;
-
   const previewFloats = props.images.map(imageFile => {
     let objectURL = URL.createObjectURL(imageFile);
     const position = {
-      left: `${leftPosition}vw`,
+      left: `${leftPosition}%`,
       top: `${topPosition}rem`
     }
 
-    leftPosition = leftPosition === 35 ? 34 : 35;
+    leftPosition = leftPosition === 50 ? 49 : 50;
     topPosition += 5;
 
     return (
-      <PreviewFloat url={objectURL} position={position} key={v4()}/>
+      <PreviewFloat url={objectURL} position={position} key={v4()} />
     )
   });
 
-  const handleSubmit = () => {
+  const routeChange = () => {
+    setRoute("/review")
+  }
 
+  const handleSubmit = () => {
+    routeChange();
   }
 
   let button = props.images.length > 0
-  ? <Button fluid onClick={handleSubmit} style={buttonStyle} content='Continue' />
-  : <Button fluid style={disabledButtonStyle} content='Continue' />
+    ? <Button fluid onClick={handleSubmit} style={buttonStyle} content='Continue' />
+    : <Button fluid style={disabledButtonStyle} content='Continue' />
 
   if (props.fields.length === 0) return <Redirect push to='/' />
-
+  if (route) return <Redirect push to={route} />
   return (
     <div className="uploadImage">
       <Grid textAlign='center' columns={2}>
@@ -67,7 +70,7 @@ const UploadImage = (props) => {
         </Grid.Row>
         <Grid.Row className="uploadImageFooterRow">
           <Grid.Column>
-            <span id="uploadImageFooter">Choose images with good lighting and detail</span>
+            <span id="uploadImageFooter">Choose pictures with good lighting and detail</span>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row className="uploadImageFooterRow">
@@ -93,7 +96,7 @@ const UploadImage = (props) => {
                   </div>
                 </div>
               </div>
-                {button}
+              {button}
             </div>
           </Grid.Column>
         </Grid.Row>
