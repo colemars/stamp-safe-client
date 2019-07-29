@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { Grid, Input, Header, Button, Dimmer, Icon } from 'semantic-ui-react'
+import { Grid, Input, Header, Button, Dimmer, Icon, Modal } from 'semantic-ui-react'
 import v4 from "uuid";
 import { Redirect } from 'react-router-dom';
 import "./ReviewItemStaging.css";
 import { API } from "aws-amplify";
 import { connect } from 'react-redux';
 import { addFields } from '../actions/index'
+import { addStageAccessKey } from '../actions/index'
 import { s3Upload } from "../libs/awsLib";
+import download from "downloadjs"
 
 const buttonStyle = {
   backgroundColor: "#313131",
@@ -31,19 +33,20 @@ const imageStyle = {
   border: "none"
 }
 
-// add functionality so that, if user hits back button or re-navigates to his page AFTER hitting submit, the fields show the infomation already submitted and editing them will edit the already existing state instead of submitting a new state
+// TODO add functionality so that, if user hits back button or re-navigates to his page AFTER hitting submit, the fields show the infomation already submitted and editing them will edit the already existing state instead of submitting a new state
 
 const StageItem = (props) => {
   const { serialNumber, make, model, yearManufactored, condition, previousOwners, price } = props.fields;
-  
   const images  = props.images;
-  
   const [loading, setLoading] = useState(false);
   const [loadingComplete, setLoadingComplete] = useState(false);
   const [route, setRoute] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [accessKey, setAccessKey] = useState();
 
-  const routeChange = () => {
-    setRoute("/upload")
+
+  const routeChange = (route) => {
+    setRoute(route)
   }
 
   const stageUpload = fields => {
@@ -53,17 +56,24 @@ const StageItem = (props) => {
   }
 
   const getAccessToken = () => {
-    return v4();
+    const key = v4();
+    setAccessKey(key)
+    return key;
+  }
+
+  const uploadComplete = () => {
+    setLoadingComplete(true);
+    setTimeout(() => {
+      setModalOpen(true);
+      setLoadingComplete(false);
+      setLoading(false);
+    }, 1000);
   }
 
   const handleSubmit = async () => {
-    console.log('submit')
     setLoading(true);
-
     const accessToken = getAccessToken();
-
     const imageKeys = await s3Upload(props.images, accessToken);
-
     try {
       await stageUpload({
         accessToken,
@@ -76,12 +86,17 @@ const StageItem = (props) => {
         price,
         imageKeys
       });
-      // routeChange();
-      setLoadingComplete(true);
+      uploadComplete();
     } catch (e) {
       alert(e);
       setLoading(false);
     }
+  }
+
+  const handleDownloadKey = () => {
+    download(accessKey, "STAMPSAFE-LISTINGKEY.txt", "text/plain");
+    props.addStageAccessKey(accessKey);
+    routeChange('/stage-report')
   }
 
   const imageURL = (number) => {
@@ -89,19 +104,46 @@ const StageItem = (props) => {
     else return 'https://react.semantic-ui.com/images/wireframe/image.png'
   };
 
+  const dimmerIcon = loadingComplete ? <Icon name="check circle outline" size='huge' style={{color: "#2AC940"}}/> : <Icon loading name="spinner" size='huge' style={{color: "#3CA1AC"}}/> 
+
   if (route) {
-    return <Redirect push to='/upload' />
+    return <Redirect push to={route} />
   }
 
   // if (props.fields.length === 0) return <Redirect push to='/' />
-
-  const dimmerIcon = loadingComplete ? <Icon name="check circle outline" size='huge' style={{color: "#2AC940"}}/> : <Icon loading name="spinner" size='huge' style={{color: "#3CA1AC"}}/> 
 
   return (
     <div className="itemReview">
       <Dimmer active={loading} page>
         {dimmerIcon}
       </Dimmer>
+      <Modal
+        open={modalOpen}
+        onClose={e => setModalOpen(false)}
+        size='tiny'
+      >
+        <Modal.Content>
+          <Icon className={"warningIcon"} name="warning sign" size='huge' style={{color: "#B51F23", width: "100%", margin: "auto", marginTop: "1rem"}}/> 
+          <div className={"modalHeader"}>Here is your Listing Key!</div>
+          <div className={"modalContent"}>You will need this to access the listing you just created.</div>
+          <div className={"modalSubContent"}>In an effort to protect your privacy there is not a sign up process. This key is how you will access your information. If you lose this key <span className={"modalEmphasis"}>access to your listing will be lost and will be irrecoverable.</span></div>
+            <div className={"keyBox"}>
+          <Grid columns={2}>
+            <Grid.Column width={10}>
+              <Grid.Row>
+                <div className={"listKeyHeader"}>Backup your StampSafe Listing Key</div>
+              </Grid.Row>
+              <Grid.Row>
+                <div className={"listKey"}><Icon name='key'/>{accessKey}</div>
+              </Grid.Row>
+            </Grid.Column>
+            <Grid.Column width={6}>
+              <Button color='teal' className={"keyDownloadButton"} onClick={handleDownloadKey}>Download Key</Button> 
+            </Grid.Column>
+          </Grid>
+            </div>
+        </Modal.Content>
+      </Modal>
       <Grid>
         <Grid.Row centered columns={2}>
           <Grid.Column textAlign='center'>
@@ -192,7 +234,7 @@ const StageItem = (props) => {
               <Grid.Column>
                 <div className="itemReviewInputBox">
                   <Input disabled id="price" className="itemReviewInput" value={price}
-                    label='Price' placeholder='Price' />
+                    label='$' placeholder='Price' />
                 </div>
               </Grid.Column>
             </Grid.Row>
@@ -221,7 +263,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  addFields: fields => dispatch(addFields(fields))
+  addFields: fields => dispatch(addFields(fields)),
+  addStageAccessKey: key => dispatch(addStageAccessKey(key))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(StageItem)
