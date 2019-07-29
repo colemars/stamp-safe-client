@@ -302,17 +302,17 @@ const ListingReport = (props) => {
                   {/* own component eventually */}
                   <Grid.Row centered columns={3} style={{ padding: "0", paddingBottom: ".6em", paddingTop: ".4em"}}>
                     <Grid.Column>
-                      <Button style={{ width: "9rem", fontSize: "1rem"  }}>
+                      <Button style={{ width: "100%" }}>
                         Backup Key
                        </Button>
                     </Grid.Column>
                     <Grid.Column>
-                      <Button color="orange " style={{ width: "9rem", fontSize: "1rem" }}>
+                      <Button color="orange " style={{ width: "100%" }}>
                         Export CSV
                        </Button>
                     </Grid.Column>
                     <Grid.Column>
-                      <Button color="red" style={{ width: "9rem", fontSize: "1rem" }}>
+                      <Button color="red" style={{ width: "100%" }}>
                         Delete
                        </Button>
                     </Grid.Column>
