@@ -19,7 +19,7 @@ const LandingButtons = () => {
           <Button fluid onClick={e => setRoute("stage")}>Seller</Button>
         </Grid.Column>
       </Grid.Row>
-      <span className="link-block">Or <a href="123" style={{ color: "inherit" }}>Log in</a></span>
+      <span className="link-block">Or <a href="123" style={{ color: "inherit" }}>Get Report</a></span>
     </Grid>
   )
 }
