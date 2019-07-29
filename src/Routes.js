@@ -5,6 +5,7 @@ import Buyer from "./components/Buyer";
 import Seller from "./components/Seller";
 import UploadImage from "./components/UploadImage";
 import Review from "./components/ReviewItemStaging";
+import ListingReport from "./components/ListingReport";
 
 export default () =>
   <Switch>
@@ -13,4 +14,5 @@ export default () =>
     <Route path="/stage" exact component={Seller} />
     <Route path="/upload" exact component={UploadImage} />
     <Route path="/review" exact component={Review} />
+    <Route path="/stage-report" exact component={ListingReport} />
   </Switch>;
