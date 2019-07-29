@@ -6,6 +6,7 @@
     "aws-amplify": "^1.1.32",
     "aws-sdk": "^2.496.0",
     "connected-react-router": "^6.5.2",
+    "downloadjs": "^1.4.7",
     "normalize.css": "^8.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
