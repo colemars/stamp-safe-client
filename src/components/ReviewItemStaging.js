@@ -59,7 +59,7 @@ const StageItem = props => {
   const [modalOpen, setModalOpen] = useState(false);
   const [accessKey, setAccessKey] = useState();
 
-  const routeChange = route => {
+  const routeChange = () => {
     setRoute(route);
   };
 
