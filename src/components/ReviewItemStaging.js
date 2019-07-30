@@ -269,6 +269,7 @@ const StageItem = props => {
           </Grid.Column>
           {/* second column */}
           <Grid.Column textAlign="left">
+            {/* make own component */}
             <Grid.Row>
               <Grid.Column>
                 <div className="itemReviewInputBox">
@@ -283,6 +284,7 @@ const StageItem = props => {
                 </div>
               </Grid.Column>
             </Grid.Row>
+            {/* end own component */}
             <Grid.Row>
               <Grid.Column>
                 <div className="itemReviewInputBox">
