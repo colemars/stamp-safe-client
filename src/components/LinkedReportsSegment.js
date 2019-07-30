@@ -22,6 +22,16 @@ const LinkedReportsSegment = props => {
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState();
+  const {
+    serialNumber,
+    make,
+    model,
+    yearManufactored,
+    condition,
+    previousOwners,
+    price,
+    imageKeys
+  } = props.fields;
 
   const createReport = fields => {
     return API.post('stage', '/report', {
@@ -31,12 +41,25 @@ const LinkedReportsSegment = props => {
 
   const linkedReportsUpdate = async () => {
     setLoading(true);
-    const stage = await API.get('stage', `/stage/${props.stageAccessKey}`);
-    const report = await createReport({
-      stageId: stage.stageId
+    // const stage = await API.get('stage', `/stage/${props.stageAccessKey}`);
+    console.log(props.accessKey);
+    const result = await createReport({
+      typeId: '101',
+      linkedReport: props.linkKey,
+      accessKey: props.accessKey,
+      serialNumber,
+      make,
+      model,
+      yearManufactored,
+      conditionOfItem: condition,
+      previousOwners,
+      price,
+      imageKeys
     });
+    console.log(result);
+    setToken(result);
     setLoading(false);
-    return report;
+    return result;
   };
 
   const handleDownloadToken = () => {
@@ -255,7 +278,9 @@ const LinkedReportsSegment = props => {
 };
 
 LinkedReportsSegment.propTypes = {
-  stageAccessKey: PropTypes.string
+  accessKey: PropTypes.string,
+  linkKey: PropTypes.string,
+  fields: PropTypes.object
 };
 
 export default LinkedReportsSegment;

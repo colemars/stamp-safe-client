@@ -10,7 +10,7 @@ import DescriptiveLinkSegment from './DescriptiveLinkSegment';
 import ActionsSegment from './ActionsSegment';
 
 const ListingReport = props => {
-  if (props.fields.length === 0) return <Redirect push to="/" />;
+  // if (props.fields.length === 0) return <Redirect push to="/" />;
   return (
     <div
       style={{
@@ -29,7 +29,11 @@ const ListingReport = props => {
       <Grid centered columns={2}>
         <Grid.Row stretched>
           <Grid.Column>
-            <LinkedReportsSegment stageAccessKey={props.accessKey} />
+            <LinkedReportsSegment
+              accessKey={props.accessKey}
+              linkKey={props.linkKey}
+              fields={props.fields}
+            />
             <StagingDetailsSegment details={props.fields} />
           </Grid.Column>
           <Grid.Column>
@@ -57,7 +61,8 @@ const ListingReport = props => {
 
 const mapStateToProps = state => ({
   fields: state.fields.fields,
-  accessKey: state.accessKey.stageAccessKey
+  accessKey: state.keys.accessKey,
+  linkKey: state.keys.linkKey
 });
 
 export default connect(mapStateToProps)(ListingReport);

@@ -8,13 +8,13 @@ import {
   Icon,
   Modal
 } from 'semantic-ui-react';
-import v4 from 'uuid';
 import { Redirect } from 'react-router-dom';
+import v4 from "uuid";
 import './ReviewItemStaging.css';
 import { API } from 'aws-amplify';
 import { connect } from 'react-redux';
 import download from 'downloadjs';
-import { addFields, addStageAccessKey } from '../actions/index';
+import { addFields, addAccessKey, addLinkKey } from '../actions/index';
 import s3Upload from '../libs/awsLib';
 
 const buttonStyle = {
@@ -57,22 +57,12 @@ const StageItem = props => {
   const [loadingComplete, setLoadingComplete] = useState(false);
   const [route, setRoute] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
-  const [accessKey, setAccessKey] = useState();
-
-  const routeChange = () => {
-    setRoute(route);
-  };
+  const [newAccessKey] = useState(v4());
 
   const stageUpload = fields => {
-    return API.post('stage', '/stage', {
+    return API.post('stage', '/report', {
       body: fields
     });
-  };
-
-  const getAccessKey = () => {
-    const key = v4();
-    setAccessKey(key);
-    return key;
   };
 
   const uploadComplete = () => {
@@ -86,11 +76,11 @@ const StageItem = props => {
 
   const handleSubmit = async () => {
     setLoading(true);
-    const accessToken = getAccessKey();
-    const imageKeys = await s3Upload(props.images, accessToken);
+    const imageKeys = await s3Upload(props.images, newAccessKey);
     try {
-      await stageUpload({
-        accessToken,
+      const result = await stageUpload({
+        typeId: '100',
+        accessKey: newAccessKey,
         serialNumber,
         make,
         model,
@@ -100,17 +90,18 @@ const StageItem = props => {
         price,
         imageKeys
       });
+      props.addAccessKey(result.accessKey);
+      props.addLinkKey(result.linkKey);
+      props.addFields({ ...props.fields, imageKeys });
       uploadComplete();
     } catch (e) {
-      console.log(e);
       setLoading(false);
     }
   };
 
   const handleDownloadKey = () => {
-    download(accessKey, 'STAMPSAFE-LISTINGKEY.txt', 'text/plain');
-    props.addStageAccessKey(accessKey);
-    routeChange('/stage-report');
+    download(newAccessKey, 'STAMPSAFE-LISTINGKEY.txt', 'text/plain');
+    setRoute('/stage-report');
   };
 
   const imageURL = number => {
@@ -181,7 +172,7 @@ const StageItem = props => {
                 <Grid.Row>
                   <div className={'listKey'}>
                     <Icon name="key" />
-                    {accessKey}
+                    {newAccessKey}
                   </div>
                 </Grid.Row>
               </Grid.Column>
@@ -417,7 +408,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   addFields: fields => dispatch(addFields(fields)),
-  addStageAccessKey: key => dispatch(addStageAccessKey(key))
+  addAccessKey: key => dispatch(addAccessKey(key)),
+  addLinkKey: key => dispatch(addLinkKey(key))
 });
 
 export default connect(
