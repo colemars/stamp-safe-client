@@ -1,7 +1,8 @@
 import {
   ADD_IMAGE,
   ADD_FIELDS,
-  ADD_STAGE_ACCESS_KEY
+  ADD_ACCESS_KEY,
+  ADD_LINK_KEY
 } from '../constants/action-types';
 
 export function addImage(payload) {
@@ -12,7 +13,10 @@ export function addFields(payload) {
   return { type: ADD_FIELDS, payload };
 }
 
-export function addStageAccessKey(payload) {
-  console.log(payload);
-  return { type: ADD_STAGE_ACCESS_KEY, payload };
+export function addAccessKey(payload) {
+  return { type: ADD_ACCESS_KEY, payload };
+}
+
+export function addLinkKey(payload) {
+  return { type: ADD_LINK_KEY, payload };
 }
