@@ -55,7 +55,6 @@ const StageItem = (props) => {
     });
   }
 
-  const getAccessToken = () => {
   const getAccessKey = () => {
     const key = v4();
     setAccessKey(key)
@@ -73,7 +72,6 @@ const StageItem = (props) => {
 
   const handleSubmit = async () => {
     setLoading(true);
-    const accessToken = getAccessToken();
     const accessToken = getAccessKey();
     const imageKeys = await s3Upload(props.images, accessToken);
     try {
