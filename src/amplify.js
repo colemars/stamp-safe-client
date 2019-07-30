@@ -1,13 +1,12 @@
-import Amplify, { Auth } from "aws-amplify";
-import config from "./config";
+import Amplify, { Auth } from 'aws-amplify';
+import config from './config';
 
 export default async function configureAmplify() {
-
   Amplify.configure({
     Auth: {
       mandatorySignIn: false,
       region: config.cognito.REGION,
-      identityPoolId: config.cognito.IDENTITY_POOL_ID,
+      identityPoolId: config.cognito.IDENTITY_POOL_ID
     },
     Storage: {
       region: config.s3.REGION,
@@ -17,15 +16,15 @@ export default async function configureAmplify() {
     API: {
       endpoints: [
         {
-          name: "stage",
+          name: 'stage',
           endpoint: config.apiGateway.URL,
           region: config.apiGateway.REGION
-        },
+        }
       ]
     }
   });
 
   const anonymousUser = await Auth.currentCredentials();
 
-  console.log(anonymousUser)
+  console.log(anonymousUser);
 }

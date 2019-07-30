@@ -1,39 +1,39 @@
-import React, { useState } from "react";
-import { Grid, Header, Button, Divider, Icon } from "semantic-ui-react";
-import { Redirect } from "react-router-dom";
-import "./UploadImage.css";
-import DragNDrop from "./fileDragNDropUpload";
-import PasteImageInput from "./PasteImageInput";
-import PreviewFloat from "./PreviewFloat";
-import v4 from "uuid";
-import { connect } from "react-redux";
+import React, { useState } from 'react';
+import { Grid, Header, Button, Divider, Icon } from 'semantic-ui-react';
+import { Redirect } from 'react-router-dom';
+import './UploadImage.css';
+import v4 from 'uuid';
+import { connect } from 'react-redux';
+import DragNDrop from './fileDragNDropUpload';
+import PasteImageInput from './PasteImageInput';
+import PreviewFloat from './PreviewFloat';
 
 const buttonStyle = {
-  backgroundColor: "#313131",
-  color: "white",
-  cursor: "pointer",
-  width: "100%",
-  height: "3rem",
-  margin: "auto",
-  marginTop: "3rem"
+  backgroundColor: '#313131',
+  color: 'white',
+  cursor: 'pointer',
+  width: '100%',
+  height: '3rem',
+  margin: 'auto',
+  marginTop: '3rem'
 };
 
 const disabledButtonStyle = {
   ...buttonStyle,
   ...{
-    backgroundColor: "#E6E6E6",
-    cursor: "default"
+    backgroundColor: '#E6E6E6',
+    cursor: 'default'
   }
 };
 
-//TODO: add limit for file uploads
+// TODO: add limit for file uploads
 
 const UploadImage = props => {
   const [route, setRoute] = useState(null);
   let leftPosition = 50;
   let topPosition = 8;
   const previewFloats = props.images.map(imageFile => {
-    let objectURL = URL.createObjectURL(imageFile);
+    const objectURL = URL.createObjectURL(imageFile);
     const position = {
       left: `${leftPosition}%`,
       top: `${topPosition}rem`
@@ -46,14 +46,14 @@ const UploadImage = props => {
   });
 
   const routeChange = () => {
-    setRoute("/review");
+    setRoute('/review');
   };
 
   const handleSubmit = () => {
     routeChange();
   };
 
-  let button =
+  const button =
     props.images.length > 0 ? (
       <Button
         fluid

@@ -1,10 +1,10 @@
-import React from "react";
-import { Grid, Header, Image, Segment, Button } from "semantic-ui-react";
-import accountAlert from ".././account-alert-outline.png";
+import React from 'react';
+import { Grid, Header, Image, Segment, Button } from 'semantic-ui-react';
+import accountAlert from '../account-alert-outline.png';
 
 const ActionsSegment = props => {
   return (
-    <Segment.Group style={{ width: "70%", marginRight: "auto" }}>
+    <Segment.Group style={{ width: '70%', marginRight: 'auto' }}>
       <Segment>
         <Grid stackable columns={4}>
           <Grid.Column width={12}>
@@ -12,13 +12,13 @@ const ActionsSegment = props => {
               textAlign="left"
               as="h3"
               style={{
-                padding: "1em",
-                paddingTop: "1em",
-                paddingBottom: ".5em"
+                padding: '1em',
+                paddingTop: '1em',
+                paddingBottom: '.5em'
               }}
             >
               <Header.Content>Actions</Header.Content>
-              <Header.Subheader style={{ paddingTop: "1em" }}>
+              <Header.Subheader style={{ paddingTop: '1em' }}>
                 Delete your listing or Export as a CSV
               </Header.Subheader>
             </Header>
@@ -27,10 +27,10 @@ const ActionsSegment = props => {
             <Image
               src={accountAlert}
               style={{
-                marginLeft: "-1em",
-                paddingTop: ".5em",
-                maxWidth: "6em",
-                height: "auto"
+                marginLeft: '-1em',
+                paddingTop: '.5em',
+                maxWidth: '6em',
+                height: 'auto'
               }}
             />
           </Grid.Column>
@@ -38,10 +38,10 @@ const ActionsSegment = props => {
       </Segment>
       <Segment
         style={{
-          fontFamily: "Roboto",
-          fontSize: "1.1rem",
-          paddingTop: "1.5em",
-          paddingBottom: "1em"
+          fontFamily: 'Roboto',
+          fontSize: '1.1rem',
+          paddingTop: '1.5em',
+          paddingBottom: '1em'
         }}
       >
         <Grid columns={2} textAlign="left">
@@ -49,18 +49,18 @@ const ActionsSegment = props => {
           <Grid.Row
             centered
             columns={3}
-            style={{ padding: "0", paddingBottom: ".6em", paddingTop: ".4em" }}
+            style={{ padding: '0', paddingBottom: '.6em', paddingTop: '.4em' }}
           >
             <Grid.Column>
-              <Button style={{ width: "100%" }}>Backup Key</Button>
+              <Button style={{ width: '100%' }}>Backup Key</Button>
             </Grid.Column>
             <Grid.Column>
-              <Button color="orange" style={{ width: "100%" }}>
+              <Button color="orange" style={{ width: '100%' }}>
                 Export CSV
               </Button>
             </Grid.Column>
             <Grid.Column>
-              <Button color="red" style={{ width: "100%" }}>
+              <Button color="red" style={{ width: '100%' }}>
                 Delete
               </Button>
             </Grid.Column>

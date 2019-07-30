@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { Grid, Input, Header, Button } from "semantic-ui-react";
-import { Redirect } from "react-router-dom";
-import "./StageItem.css";
-import { connect } from "react-redux";
-import { addFields } from "../actions/index";
+import React, { useState } from 'react';
+import { Grid, Input, Header, Button } from 'semantic-ui-react';
+import { Redirect } from 'react-router-dom';
+import './StageItem.css';
+import { connect } from 'react-redux';
+import { addFields } from '../actions/index';
 
 const disabledButtonStyle = {
-  backgroundColor: "#E6E6E6",
-  cursor: "default"
+  backgroundColor: '#E6E6E6',
+  cursor: 'default'
 };
 
 // add functionality so that, if user hits back button or re-navigates to his page AFTER hitting submit, the fields show the infomation already submitted and editing them will edit the already existing state instead of submitting a new state
@@ -35,7 +35,7 @@ const StageItem = props => {
   };
 
   const routeChange = () => {
-    setRoute("/upload");
+    setRoute('/upload');
   };
 
   const handleSubmit = async () => {
@@ -51,11 +51,11 @@ const StageItem = props => {
     routeChange();
   };
 
-  let button = validateForm() ? (
+  const button = validateForm() ? (
     <Button
       fluid
       onClick={handleSubmit}
-      style={{ backgroundColor: "#313131" }}
+      style={{ backgroundColor: '#313131' }}
       content="Submit"
     />
   ) : (
@@ -77,8 +77,8 @@ const StageItem = props => {
         <Grid.Row className="stageItemFooterRow">
           <Grid.Column>
             <span id="stageItemFooter">
-              Looking for an item you've already staged?{" "}
-              <a href="123" style={{ color: "inherit" }}>
+              Looking for an item you&apos;ve already staged?{' '}
+              <a href="123" style={{ color: 'inherit' }}>
                 Find it here
               </a>
             </span>

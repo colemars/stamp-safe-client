@@ -1,28 +1,28 @@
-import React from "react";
-import { Grid, Header } from "semantic-ui-react";
-import accurateLogo from ".././accurate.jpeg";
-import safe from ".././safe.png";
-import { Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import LinkedReportsSegment from "./LinkedReportsSegment";
-import StagingDetailsSegment from "./StagingDetailsSegment";
-import DescriptiveLinkSegment from "./DescriptiveLinkSegment";
-import ActionsSegment from "./ActionsSegment";
+import React from 'react';
+import { Grid, Header } from 'semantic-ui-react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import accurateLogo from '../accurate.jpeg';
+import safe from '../safe.png';
+import LinkedReportsSegment from './LinkedReportsSegment';
+import StagingDetailsSegment from './StagingDetailsSegment';
+import DescriptiveLinkSegment from './DescriptiveLinkSegment';
+import ActionsSegment from './ActionsSegment';
 
 const ListingReport = props => {
   if (props.fields.length === 0) return <Redirect push to="/" />;
   return (
     <div
       style={{
-        backgroundColor: "white",
-        height: "100%",
-        padding: "45px",
-        color: "#202124"
+        backgroundColor: 'white',
+        height: '100%',
+        padding: '45px',
+        color: '#202124'
       }}
     >
       <Header textAlign="center" as="h1">
         <Header.Content>Your StampSafe Stage</Header.Content>
-        <Header.Subheader style={{ padding: "1em" }}>
+        <Header.Subheader style={{ padding: '1em' }}>
           Ensure your privacy, safety and security with StampSafe
         </Header.Subheader>
       </Header>
