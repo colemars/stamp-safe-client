@@ -215,7 +215,6 @@ const StageItem = props => {
         </Grid.Row>
         <Grid.Row centered columns={3} style={{ marginTop: "1rem" }}>
           {/* first column */}
-
           <Grid.Column className="imageColumn" style={{ marginTop: ".5rem" }}>
             <Grid columns="equal">
               <Grid.Row>
@@ -268,9 +267,7 @@ const StageItem = props => {
               </Grid.Row>
             </Grid>
           </Grid.Column>
-
           {/* second column */}
-
           <Grid.Column textAlign="left">
             <Grid.Row>
               <Grid.Column>
