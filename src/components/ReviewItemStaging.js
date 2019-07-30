@@ -121,6 +121,8 @@ const StageItem = (props) => {
         open={modalOpen}
         onClose={e => setModalOpen(false)}
         size='tiny'
+        closeOnEscape={false}
+        closeOnDimmerClick={false}
       >
         <Modal.Content>
           <Icon className={"warningIcon"} name="warning sign" size='huge' style={{color: "#B51F23", width: "100%", margin: "auto", marginTop: "1rem"}}/> 
