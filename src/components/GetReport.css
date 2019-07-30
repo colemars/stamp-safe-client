@@ -1,0 +1,44 @@
+.stageItem {
+  padding-top: 5vh;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+}
+
+.itemInputBox {
+  margin: auto;
+  width: 21rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(34,36,38,0.15);
+}
+
+.itemInputBox .itemInput {
+  padding-bottom: 2%;
+  width: 95%;
+}
+
+#stageItemFooter {
+  font-family: Arial;
+  font-size: 16px;
+  color: rgba(89, 89, 89, 0.8);
+}
+
+.stageItemFooterRow {
+  margin-bottom: 2vh;
+  margin-top: -2vh;
+}
+
+.stageItem .ui.button {
+  margin: auto;
+  /* background: #E6E6E6 none; */
+  color: white;
+  width: 21rem;
+}
+
+.stageItem .ui.button:hover {
+  background: #313131  none;
+}
+
+.ui.header{
+  color: rgba(49, 49, 49, 0.86)
+}
