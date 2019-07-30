@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Header, Image, Icon, Segment } from "semantic-ui-react";
+import { Grid, Header, Image, Segment } from "semantic-ui-react";
 import information from ".././information.png";
 import PropTypes from "prop-types";
 
