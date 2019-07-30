@@ -110,7 +110,7 @@ const StageItem = (props) => {
     return <Redirect push to={route} />
   }
 
-  // if (props.fields.length === 0) return <Redirect push to='/' />
+  if (props.fields.length === 0) return <Redirect push to='/' />
 
   return (
     <div className="itemReview">
