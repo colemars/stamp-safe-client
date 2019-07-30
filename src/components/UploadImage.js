@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Grid, Header, Button, Divider, Icon } from 'semantic-ui-react'
-import { Redirect } from 'react-router-dom';
+import { Grid, Header, Button, Divider, Icon } from "semantic-ui-react";
+import { Redirect } from "react-router-dom";
 import "./UploadImage.css";
-import DragNDrop from './fileDragNDropUpload';
-import PasteImageInput from './PasteImageInput'
-import PreviewFloat from './PreviewFloat';
+import DragNDrop from "./fileDragNDropUpload";
+import PasteImageInput from "./PasteImageInput";
+import PreviewFloat from "./PreviewFloat";
 import v4 from "uuid";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
 const buttonStyle = {
   backgroundColor: "#313131",
@@ -15,19 +15,20 @@ const buttonStyle = {
   width: "100%",
   height: "3rem",
   margin: "auto",
-  marginTop: "3rem",
-}
+  marginTop: "3rem"
+};
 
 const disabledButtonStyle = {
-  ...buttonStyle, ...{
+  ...buttonStyle,
+  ...{
     backgroundColor: "#E6E6E6",
     cursor: "default"
   }
-}
+};
 
-//TODO: add limit for file uploads 
+//TODO: add limit for file uploads
 
-const UploadImage = (props) => {
+const UploadImage = props => {
   const [route, setRoute] = useState(null);
   let leftPosition = 50;
   let topPosition = 8;
@@ -36,41 +37,49 @@ const UploadImage = (props) => {
     const position = {
       left: `${leftPosition}%`,
       top: `${topPosition}rem`
-    }
+    };
 
     leftPosition = leftPosition === 50 ? 49 : 50;
     topPosition += 5;
 
-    return (
-      <PreviewFloat url={objectURL} position={position} key={v4()} />
-    )
+    return <PreviewFloat url={objectURL} position={position} key={v4()} />;
   });
 
   const routeChange = () => {
-    setRoute("/review")
-  }
+    setRoute("/review");
+  };
 
   const handleSubmit = () => {
     routeChange();
-  }
+  };
 
-  let button = props.images.length > 0
-    ? <Button fluid onClick={handleSubmit} style={buttonStyle} content='Continue' />
-    : <Button fluid style={disabledButtonStyle} content='Continue' />
+  let button =
+    props.images.length > 0 ? (
+      <Button
+        fluid
+        onClick={handleSubmit}
+        style={buttonStyle}
+        content="Continue"
+      />
+    ) : (
+      <Button fluid style={disabledButtonStyle} content="Continue" />
+    );
 
-  if (props.fields.length === 0) return <Redirect push to='/' />
-  if (route) return <Redirect push to={route} />
+  if (props.fields.length === 0) return <Redirect push to="/" />;
+  if (route) return <Redirect push to={route} />;
   return (
     <div className="uploadImage">
-      <Grid textAlign='center' columns={2}>
+      <Grid textAlign="center" columns={2}>
         <Grid.Row>
           <Grid.Column>
-            <Header as='h1'>Image Upload</Header>
+            <Header as="h1">Image Upload</Header>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row className="uploadImageFooterRow">
           <Grid.Column>
-            <span id="uploadImageFooter">Choose pictures with good lighting and detail</span>
+            <span id="uploadImageFooter">
+              Choose pictures with good lighting and detail
+            </span>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row className="uploadImageFooterRow">
@@ -82,16 +91,12 @@ const UploadImage = (props) => {
                 <div id="chooseImageBox">
                   <div id="imageChoice">
                     <Button icon>
-                      <Icon name='file image outline' />
-                      &nbsp;
-                      &nbsp;
-                      Choose Photo
-                      &nbsp;
-                      &nbsp;
-                      &nbsp;
-                      &nbsp;
+                      <Icon name="file image outline" />
+                      &nbsp; &nbsp; Choose Photo &nbsp; &nbsp; &nbsp; &nbsp;
                     </Button>
-                    <Divider horizontal id="divider">Or</Divider>
+                    <Divider horizontal id="divider">
+                      Or
+                    </Divider>
                     <PasteImageInput />
                   </div>
                 </div>
@@ -102,12 +107,12 @@ const UploadImage = (props) => {
         </Grid.Row>
       </Grid>
     </div>
-  )
-}
+  );
+};
 
 const mapStateToProps = state => ({
   images: state.images.images,
   fields: state.fields.fields
-})
+});
 
-export default connect(mapStateToProps)(UploadImage)
+export default connect(mapStateToProps)(UploadImage);
