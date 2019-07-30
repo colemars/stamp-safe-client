@@ -15,8 +15,7 @@ import { API } from 'aws-amplify';
 import { connect } from 'react-redux';
 import download from 'downloadjs';
 import { addFields, addStageAccessKey } from '../actions/index';
-
-import { s3Upload } from '../libs/awsLib';
+import s3Upload from '../libs/awsLib';
 
 const buttonStyle = {
   backgroundColor: '#313131',
@@ -208,8 +207,8 @@ const StageItem = props => {
         <Grid.Row centered columns={2} className="itemReviewFooterRow">
           <Grid.Column textAlign="center">
             <div id="itemReviewFooter">
-              Verify your information is correct - once you hit submit you won&apos;t
-              be able to change it{' '}
+              Verify your information is correct - once you hit submit you
+              won&apos;t be able to change it{' '}
             </div>
           </Grid.Column>
         </Grid.Row>
