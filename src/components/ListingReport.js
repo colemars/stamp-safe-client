@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-import { API } from "aws-amplify";
-import { Grid, Header, Image, Icon, Segment, Button } from 'semantic-ui-react'
-import PropTypes from 'prop-types';
+import React from "react";
+import { Grid, Header } from 'semantic-ui-react'
 import accurateLogo from ".././accurate.jpeg";
 import safe from ".././safe.png";
 import { Redirect } from 'react-router-dom';
@@ -12,17 +10,7 @@ import DescriptiveLinkSegment from './DescriptiveLinkSegment';
 import ActionsSegment from './ActionsSegment'
 
 const ListingReport = (props) => {
-  console.log(props)
-  const [listings, setListings] = useState();
-  const test = async () => {
-    const report = await API.get("stage", `/stage/${props.accessKey}`);
-    setListings(report);
-    console.log(report)
-    return report;
-  }
-
-  // if (props.fields.length === 0) return <Redirect push to='/' />
-
+  if (props.fields.length === 0) return <Redirect push to='/' />
   return (
     <div style={{ backgroundColor: "white", height: "100%", padding: "45px", color: "#202124" }}>
       <Header textAlign='center' as='h1'>
