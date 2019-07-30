@@ -13,7 +13,7 @@ const LandingButtons = () => {
     <Grid className="landingButtons" textAlign="center" columns={8}>
       <Grid.Row>
         <Grid.Column>
-          <Button fluid onClick={() => setRoute('buyer')}>
+          <Button fluid onClick={() => setRoute('get-report')}>
             Buyer
           </Button>
         </Grid.Column>
