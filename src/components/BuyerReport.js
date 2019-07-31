@@ -29,7 +29,11 @@ const BuyerReport = props => {
       <Grid centered columns={2}>
         <Grid.Row stretched>
           <Grid.Column>
-            <LinkedReportsSegment stageAccessKey={props.accessKey} />
+            <LinkedReportsSegment
+              accessKey={props.accessKey}
+              linkKey={props.linkKey}
+              fields={props.fields}
+            />
             <StagingDetailsSegment details={props.fields} />
           </Grid.Column>
           <Grid.Column>
@@ -57,7 +61,8 @@ const BuyerReport = props => {
 
 const mapStateToProps = state => ({
   fields: state.fields.fields,
-  accessKey: state.accessKey.stageAccessKey
+  accessKey: state.keys.accessKey,
+  linkKey: state.keys.linkKey
 });
 
 export default connect(mapStateToProps)(BuyerReport);
