@@ -1,10 +1,46 @@
-import React from 'react';
-import { Grid, Header, Image, Segment, Button } from 'semantic-ui-react';
+import React, { useState } from 'react';
+import {
+  Grid,
+  Header,
+  Image,
+  Segment,
+  Button,
+  Dimmer,
+  Icon
+} from 'semantic-ui-react';
+import { Redirect } from 'react-router-dom';
+import { API } from 'aws-amplify';
 import accountAlert from '../account-alert-outline.png';
 
 const ActionsSegment = props => {
+  const [loading, setLoading] = useState();
+  const [route, setRoute] = useState();
+
+  const deleteReport = fields => {
+    return API.del('stage', `/report/${props.accessKey}`, {
+      body: fields
+    });
+  };
+
+  const handleClickDeleteButton = async () => {
+    setLoading(true);
+    const result = await deleteReport({
+      typeId: props.reportType
+    });
+    console.log(result)
+    setLoading(false);
+    setRoute('/get-report');
+  };
+
+  if (route) {
+    return <Redirect push to={route} />;
+  }
+
   return (
     <Segment.Group style={{ width: '70%', marginRight: 'auto' }}>
+      <Dimmer active={loading} page>
+        <Icon loading name="spinner" size="huge" style={{ color: '#3CA1AC' }} />
+      </Dimmer>
       <Segment>
         <Grid stackable columns={4}>
           <Grid.Column width={12}>
@@ -60,7 +96,11 @@ const ActionsSegment = props => {
               </Button>
             </Grid.Column>
             <Grid.Column>
-              <Button color="red" style={{ width: '100%' }}>
+              <Button
+                onClick={handleClickDeleteButton}
+                color="red"
+                style={{ width: '100%' }}
+              >
                 Delete
               </Button>
             </Grid.Column>

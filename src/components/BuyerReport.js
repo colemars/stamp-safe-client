@@ -124,7 +124,10 @@ const BuyerReport = props => {
               urlText="View Details"
               logo={safe}
             />
-            <ActionsSegment />
+            <ActionsSegment
+              reportType="101"
+              accessKey={props.fields.accessKey}
+            />
           </Grid.Column>
         </Grid.Row>
       </Grid>
