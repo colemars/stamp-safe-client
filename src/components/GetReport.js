@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Input, Header, Button } from 'semantic-ui-react';
+import { Grid, Input, Header, Button, Dimmer, Icon } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 import './GetReport.css';
 import { connect } from 'react-redux';
@@ -18,71 +18,68 @@ const GetReport = props => {
   const [secureToken, setSecureToken] = useState(null);
   const [route, setRoute] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [errorModal, setErrorModal] = useState(false);
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
+  const [loadingComplete, setLoadingComplete] = useState(false);
 
   const validateForm = () => {
     return (accessKey || secureToken) && !(accessKey && secureToken);
   };
 
   const handleError = () => {
-    setErrorModal(true);
+    setErrorModalOpen(true);
+  };
+
+  const handleBuyerReport = report => {
+    props.addFields({
+      serialNumber: report.serialNumber,
+      make: report.make,
+      model: report.model,
+      yearManufactored: report.yearManufactored,
+      condition: report.conditionOfItem,
+      imageKeys: report.imageKeys,
+      previousOwners: report.previousOwners,
+      price: report.price,
+      backgroundCheckStatus: report.backgroundCheckStatus,
+      stolenPropertyCheckStatus: report.stolenPropertyCheckStatus,
+      priceAlertStatus: report.priceAlertStatus,
+      accessKey: report.accessKey,
+      accessToken: report.accessToken,
+      reportStatus: report.reportStatus
+    });
+    setLoading(false);
+    setRoute('/buyer-report');
+  };
+
+  const handleSellerReport = report => {
+    props.addFields({
+      serialNumber: report.serialNumber,
+      make: report.make,
+      model: report.model,
+      yearManufactored: report.yearManufactored,
+      condition: report.conditionOfItem,
+      previousOwners: report.previousOwners,
+      price: report.price,
+      imageKeys: report.imageKeys,
+      backgroundCheckStatus: report.backgroundCheckStatus
+    });
+    setLoading(false);
+    setRoute('/stage-report');
   };
 
   const handleAccessKeySubmit = async () => {
     const report = await API.get('stage', `/report/${accessKey}`);
     if (report.linkedReports) {
-      props.addFields({
-        serialNumber: report.serialNumber,
-        make: report.make,
-        model: report.model,
-        yearManufactored: report.yearManufactored,
-        condition: report.conditionOfItem,
-        previousOwners: report.previousOwners,
-        price: report.price,
-        imageKeys: report.imageKeys,
-        backgroundCheckStatus: report.backgroundCheckStatus
-      });
-      setRoute('/stage-report');
+      handleSellerReport(report);
     }
     if (report.linkedReport) {
-      props.addFields({
-        serialNumber: report.serialNumber,
-        make: report.make,
-        model: report.model,
-        yearManufactored: report.yearManufactored,
-        condition: report.conditionOfItem,
-        imageKeys: report.imageKeys,
-        previousOwners: report.previousOwners,
-        price: report.price,
-        backgroundCheckStatus: report.backgroundCheckStatus,
-        stolenPropertyCheckStatus: report.stolenPropertyCheckStatus,
-        priceAlertStatus: report.priceAlertStatus,
-        accessKey: report.accessKey,
-        accessToken: report.accessToken
-      });
-      setRoute('/buyer-report');
+      handleBuyerReport(report);
     }
   };
 
   const handleSecureTokenSubmit = async () => {
     const report = await API.get('stage', `/authorize/${secureToken}`);
     if (report) {
-      props.addFields({
-        serialNumber: report.serialNumber,
-        make: report.make,
-        model: report.model,
-        yearManufactored: report.yearManufactored,
-        condition: report.conditionOfItem,
-        imageKeys: report.imageKeys,
-        previousOwners: report.previousOwners,
-        price: report.price,
-        backgroundCheckStatus: report.backgroundCheckStatus,
-        stolenPropertyCheckStatus: report.stolenPropertyCheckStatus,
-        priceAlertStatus: report.priceAlertStatus,
-        accessKey: report.accessKey,
-        accessToken: report.accessToken
-      });
-      setRoute('/buyer-report');
+      handleBuyerReport(report);
     } else handleError();
   };
 
@@ -103,12 +100,25 @@ const GetReport = props => {
     <Button fluid style={disabledButtonStyle} content="Submit" />
   );
 
+  const dimmerIcon = loadingComplete ? (
+    <Icon
+      name="check circle outline"
+      size="huge"
+      style={{ color: '#2AC940' }}
+    />
+  ) : (
+    <Icon loading name="spinner" size="huge" style={{ color: '#3CA1AC' }} />
+  );
+
   if (route) {
     return <Redirect push to={route} />;
   }
 
   return (
     <div className="stageItem">
+      <Dimmer active={loading} page>
+        {dimmerIcon}
+      </Dimmer>
       <Grid textAlign="center" columns={2} style={{ paddingTop: '3em' }}>
         <Grid.Row>
           <Grid.Column>
