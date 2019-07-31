@@ -25,7 +25,7 @@ const GetReport = props => {
 
   const handleAccessKeySubmit = async () => {
     const report = await API.get('stage', `/report/${accessKey}`);
-    if (report.linkedReportIds) {
+    if (report.linkedReports) {
       props.addFields({
         serialNumber: report.serialNumber,
         make: report.make,
@@ -33,58 +33,70 @@ const GetReport = props => {
         yearManufactored: report.yearManufactored,
         condition: report.conditionOfItem,
         previousOwners: report.previousOwners,
-        price: report.price
+        price: report.price,
+        imageKeys: report.imageKeys,
+        backgroundCheckStatus: report.backgroundCheckStatus
       });
       setRoute('/stage-report');
     }
-    if (report.reportId) {
+    if (report.linkedReport) {
       props.addFields({
-        reportId: report.reportId,
-        stageId: report.stageId,
         serialNumber: report.serialNumber,
         make: report.make,
         model: report.model,
         yearManufactored: report.yearManufactored,
         condition: report.conditionOfItem,
-        image: report.image,
+        imageKeys: report.imageKeys,
         previousOwners: report.previousOwners,
         price: report.price,
         backgroundCheckStatus: report.backgroundCheckStatus,
         stolenPropertyCheckStatus: report.stolenPropertyCheckStatus,
-        priceAlertStatus: report.priceAlertStatus
+        priceAlertStatus: report.priceAlertStatus,
+        accessKey: report.accessKey
       });
       setRoute('/buyer-report');
     }
   };
 
   const handleSecureTokenSubmit = async () => {
-    const report = await API.get('stage', `/report/${secureToken}`);
+    const report = await API.get('stage', `/authorize/${secureToken}`);
     console.log(report);
-    // if (report) {
-    //   props.addFields({
-    //     reportId: report.reportId,
-    //     stageId: report.stageId,
-    //     serialNumber: report.serialNumber,
-    //     make: report.make,
-    //     model: report.model,
-    //     yearManufactored: report.yearManufactored,
-    //     condition: report.conditionOfItem,
-    //     image: report.image,
-    //     previousOwners: report.previousOwners,
-    //     price: report.price,
-    //     backgroundCheckStatus: report.backgroundCheckStatus,
-    //     stolenPropertyCheckStatus: report.stolenPropertyCheckStatus,
-    //     priceAlertStatus: report.priceAlertStatus
-    //   });
-    //   setRoute('/buyer-report');
-    // } else console.log('not found');
+    const {
+      serialNumber,
+      make,
+      model,
+      yearManufactored,
+      conditionOfItem,
+      imageKeys,
+      previousOwners,
+      price,
+      backgroundCheckStatus,
+      stolenPropertyCheckStatus,
+      priceAlertStatus
+    } = report;
+    if (report) {
+      props.addFields({
+        serialNumber,
+        make,
+        model,
+        yearManufactored,
+        condition: conditionOfItem,
+        imageKeys,
+        previousOwners,
+        price,
+        backgroundCheckStatus,
+        stolenPropertyCheckStatus,
+        priceAlertStatus,
+        accessKey
+      });
+      setRoute('/buyer-report');
+    } else console.log('not found');
   };
 
   const handleSubmit = () => {
     setLoading(true);
     if (accessKey) handleAccessKeySubmit();
     else if (secureToken) handleSecureTokenSubmit();
-    console.log('secureToken');
   };
 
   const button = validateForm() ? (
