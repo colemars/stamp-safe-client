@@ -13,14 +13,17 @@ import './LinkedReportsSegment.css';
 import { API } from 'aws-amplify';
 import PropTypes from 'prop-types';
 import download from 'downloadjs';
-import closeCircle from '../close-circle.png';
 import safeShield from '../shield-check.png';
 import shieldIcon from '../shield-lock.png';
+import LinkedReport from './LinkedReport';
 
 const LinkedReportsSegment = props => {
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState();
+  const [linkedReports, setLinkedReports] = useState(
+    props.fields.linkedReports
+  );
   const {
     serialNumber,
     make,
@@ -31,6 +34,12 @@ const LinkedReportsSegment = props => {
     price,
     imageKeys
   } = props.fields;
+
+  const listLinkedReports = () => {
+    props.fields.linkedReports.forEach(report => {
+      setLinkedReports([linkedReports, ...report]);
+    });
+  };
 
   const createReport = fields => {
     return API.post('stage', '/report', {
@@ -56,6 +65,10 @@ const LinkedReportsSegment = props => {
       imageKeys
     });
     setToken(result.newAccessToken);
+    setLinkedReports([
+      linkedReports,
+      ...[{ status: result.reportStatus, key: result.linkKey }]
+    ]);
     setLoading(false);
     return result;
   };
@@ -182,68 +195,13 @@ const LinkedReportsSegment = props => {
           }}
         >
           <Grid columns={2} textAlign="left">
-            {/* own component eventually */}
-            <Grid.Row
-              style={{
-                padding: '0',
-                paddingTop: '.5em',
-                paddingBottom: '.5em'
-              }}
-            >
-              <Grid.Column width={9} style={{ paddingLeft: '2em' }}>
-                John Smith
-              </Grid.Column>
-              <Grid.Column
-                width={7}
-                textAlign="left"
-                style={{ color: '#5F6368' }}
-              >
-                <img
-                  src={closeCircle}
-                  style={{
-                    width: '1em',
-                    height: '1em',
-                    marginLeft: '.3em',
-                    marginBottom: '-.15em',
-                    marginRight: '.2em'
-                  }}
-                  alt=""
-                />
-                Not Started
-              </Grid.Column>
-            </Grid.Row>
-            {/* end own component  */}
-            {/* own component eventually */}
-            <Grid.Row
-              style={{
-                padding: '0',
-                paddingTop: '.5em',
-                paddingBottom: '.5em'
-              }}
-            >
-              <Grid.Column width={9} style={{ paddingLeft: '2em' }}>
-                Josh Alexander
-              </Grid.Column>
-              <Grid.Column
-                width={7}
-                textAlign="left"
-                style={{ color: '#5F6368' }}
-              >
-                <Icon
-                  loading
-                  size="small"
-                  name="circle notch"
-                  color="teal"
-                  style={{
-                    marginLeft: '.3em',
-                    marginBottom: '-.15em'
-                  }}
-                />
-                In Progress
-              </Grid.Column>
-            </Grid.Row>
-            {/* end own component  */}
-            {/* own component eventually */}
+            {/* linked reports */}
+            {linkedReports}
+            <LinkedReport reportKey="1234-MKa-123A" status="Not Started" />
+            <LinkedReport
+              reportKey="zsJAasj-dasdA-ajdM3"
+              status="In Progress"
+            />
             <Grid.Row
               style={{
                 padding: '0',
@@ -265,7 +223,6 @@ const LinkedReportsSegment = props => {
                 </span>
               </Grid.Column>
             </Grid.Row>
-            {/* end own component  */}
           </Grid>
         </Segment>
       </Segment.Group>
