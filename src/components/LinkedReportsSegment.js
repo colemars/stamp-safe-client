@@ -12,7 +12,6 @@ import {
 import './LinkedReportsSegment.css';
 import { API } from 'aws-amplify';
 import PropTypes from 'prop-types';
-import v4 from 'uuid';
 import download from 'downloadjs';
 import closeCircle from '../close-circle.png';
 import safeShield from '../shield-check.png';
