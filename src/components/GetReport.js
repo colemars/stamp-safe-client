@@ -18,9 +18,14 @@ const GetReport = props => {
   const [secureToken, setSecureToken] = useState(null);
   const [route, setRoute] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [errorModal, setErrorModal] = useState(false);
 
   const validateForm = () => {
     return (accessKey || secureToken) && !(accessKey && secureToken);
+  };
+
+  const handleError = () => {
+    setErrorModal(true);
   };
 
   const handleAccessKeySubmit = async () => {
@@ -52,7 +57,8 @@ const GetReport = props => {
         backgroundCheckStatus: report.backgroundCheckStatus,
         stolenPropertyCheckStatus: report.stolenPropertyCheckStatus,
         priceAlertStatus: report.priceAlertStatus,
-        accessKey: report.accessKey
+        accessKey: report.accessKey,
+        accessToken: report.accessToken
       });
       setRoute('/buyer-report');
     }
@@ -60,37 +66,24 @@ const GetReport = props => {
 
   const handleSecureTokenSubmit = async () => {
     const report = await API.get('stage', `/authorize/${secureToken}`);
-    console.log(report);
-    const {
-      serialNumber,
-      make,
-      model,
-      yearManufactored,
-      conditionOfItem,
-      imageKeys,
-      previousOwners,
-      price,
-      backgroundCheckStatus,
-      stolenPropertyCheckStatus,
-      priceAlertStatus
-    } = report;
     if (report) {
       props.addFields({
-        serialNumber,
-        make,
-        model,
-        yearManufactored,
-        condition: conditionOfItem,
-        imageKeys,
-        previousOwners,
-        price,
-        backgroundCheckStatus,
-        stolenPropertyCheckStatus,
-        priceAlertStatus,
-        accessKey
+        serialNumber: report.serialNumber,
+        make: report.make,
+        model: report.model,
+        yearManufactored: report.yearManufactored,
+        condition: report.conditionOfItem,
+        imageKeys: report.imageKeys,
+        previousOwners: report.previousOwners,
+        price: report.price,
+        backgroundCheckStatus: report.backgroundCheckStatus,
+        stolenPropertyCheckStatus: report.stolenPropertyCheckStatus,
+        priceAlertStatus: report.priceAlertStatus,
+        accessKey: report.accessKey,
+        accessToken: report.accessToken
       });
       setRoute('/buyer-report');
-    } else console.log('not found');
+    } else handleError();
   };
 
   const handleSubmit = () => {
