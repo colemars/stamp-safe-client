@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import download from 'downloadjs';
 import accurateLogo from '../accurate.jpeg';
 import safe from '../safe.png';
-import LinkedReportsSegment from './LinkedReportsSegment';
+import SecurityVerificationSegment from './SecurityVerificationSegment';
 import StagingDetailsSegment from './StagingDetailsSegment';
 import DescriptiveLinkSegment from './DescriptiveLinkSegment';
 import ActionsSegment from './ActionsSegment';
@@ -26,7 +26,7 @@ const BuyerReport = props => {
     setKeyModalOpen(true);
   };
 
-  // if (props.fields.length === 0) return <Redirect push to="/" />;
+  if (props.fields.length === 0) return <Redirect push to="/get-report" />;
   if (firstTimeAuth) handleFirstTimeAuth();
   return (
     <div
@@ -37,6 +37,7 @@ const BuyerReport = props => {
         color: '#202124'
       }}
     >
+      {/* make modal own component -- same here as in listing report */}
       <Modal
         open={keyModalOpen}
         onClose={() => setKeyModalOpen(false)}
@@ -97,7 +98,7 @@ const BuyerReport = props => {
         </Modal.Content>
       </Modal>
       <Header textAlign="center" as="h1">
-        <Header.Content>Your StampSafe Stage</Header.Content>
+        <Header.Content>Your StampSafe Report</Header.Content>
         <Header.Subheader style={{ padding: '1em' }}>
           Ensure your privacy, safety and security with StampSafe
         </Header.Subheader>
@@ -105,11 +106,7 @@ const BuyerReport = props => {
       <Grid centered columns={2}>
         <Grid.Row stretched>
           <Grid.Column>
-            <LinkedReportsSegment
-              accessKey={props.accessKey}
-              linkKey={props.linkKey}
-              fields={props.fields}
-            />
+            <SecurityVerificationSegment details={props.fields} />
             <StagingDetailsSegment details={props.fields} />
           </Grid.Column>
           <Grid.Column>

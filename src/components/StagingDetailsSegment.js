@@ -17,9 +17,9 @@ const StagingDetailsSegment = props => {
                 paddingTop: '1.5em'
               }}
             >
-              <Header.Content>Staging Details</Header.Content>
+              <Header.Content>Item Details</Header.Content>
               <Header.Subheader style={{ paddingTop: '1em' }}>
-                Information about your item
+                Detailed information about your item
               </Header.Subheader>
             </Header>
           </Grid.Column>
@@ -47,7 +47,7 @@ const StagingDetailsSegment = props => {
         <Grid columns={2} textAlign="left">
           {/* own component eventually */}
           <Grid.Row
-            style={{ padding: '0', paddingTop: '.5em', paddingBottom: '.5em' }}
+            style={{ padding: '0', paddingTop: '.3em', paddingBottom: '.3em' }}
           >
             <Grid.Column width={9} style={{ paddingLeft: '2em' }}>
               Serial Number
@@ -63,7 +63,7 @@ const StagingDetailsSegment = props => {
           {/* end own component  */}
           {/* own component eventually */}
           <Grid.Row
-            style={{ padding: '0', paddingTop: '.5em', paddingBottom: '.5em' }}
+            style={{ padding: '0', paddingTop: '.3em', paddingBottom: '.3em' }}
           >
             <Grid.Column width={9} style={{ paddingLeft: '2em' }}>
               Year/Make/Model
@@ -85,7 +85,7 @@ const StagingDetailsSegment = props => {
           {/* end own component  */}
           {/* own component eventually */}
           <Grid.Row
-            style={{ padding: '0', paddingTop: '.5em', paddingBottom: '.5em' }}
+            style={{ padding: '0', paddingTop: '.3em', paddingBottom: '.3em' }}
           >
             <Grid.Column width={9} style={{ paddingLeft: '2em' }}>
               Condition
@@ -101,7 +101,7 @@ const StagingDetailsSegment = props => {
           {/* end own component  */}
           {/* own component eventually */}
           <Grid.Row
-            style={{ padding: '0', paddingTop: '.5em', paddingBottom: '.5em' }}
+            style={{ padding: '0', paddingTop: '.3em', paddingBottom: '.3em' }}
           >
             <Grid.Column width={9} style={{ paddingLeft: '2em' }}>
               Previous Owners

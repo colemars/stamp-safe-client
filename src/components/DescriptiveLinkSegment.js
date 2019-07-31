@@ -39,14 +39,12 @@ const DescriptiveLinkSegment = props => {
       <Segment
         style={{
           fontFamily: 'Roboto',
-          fontSize: '1.1rem',
-          paddingTop: '1.5em',
-          paddingBottom: '.5em'
+          fontSize: '1.1rem'
         }}
       >
         <Grid columns={2} textAlign="left">
           {/* own component eventually */}
-          <Grid.Row style={{ padding: '0' }}>
+          <Grid.Row style={{ paddingTop: ".5em", paddingBottom: ".6em" }}>
             <Grid.Column width={9} style={{ paddingLeft: '2em' }}>
               <a href={props.url} style={{ textDecoration: 'none' }}>
                 {props.urlText}
