@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import './GetReport.css';
 import { connect } from 'react-redux';
 import { API } from 'aws-amplify';
-import { addFields } from '../actions/index';
+import { addFields, addAccessKey } from '../actions/index';
 
 const disabledButtonStyle = {
   backgroundColor: '#E6E6E6',
@@ -46,6 +46,7 @@ const GetReport = props => {
       accessToken: report.accessToken,
       reportStatus: report.reportStatus
     });
+    props.addAccessKey(report.accessKey);
     setLoading(false);
     setRoute('/buyer-report');
   };
@@ -61,8 +62,10 @@ const GetReport = props => {
       price: report.price,
       imageKeys: report.imageKeys,
       backgroundCheckStatus: report.backgroundCheckStatus,
-      linkedReports: report.linkedReports
+      linkedReports: report.linkedReports,
+      accessKey: report.accessKey
     });
+    props.addAccessKey(report.accessKey);
     setLoading(false);
     setRoute('/stage-report');
   };
@@ -169,7 +172,8 @@ const GetReport = props => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  addFields: fields => dispatch(addFields(fields))
+  addFields: fields => dispatch(addFields(fields)),
+  addAccessKey: key => dispatch(addAccessKey(key))
 });
 
 export default connect(
