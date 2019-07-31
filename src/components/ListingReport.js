@@ -51,7 +51,7 @@ const ListingReport = props => {
               urlText="View Details"
               logo={safe}
             />
-            <ActionsSegment />
+            <ActionsSegment accessKey={props.accessKey} reportType="100" />
           </Grid.Column>
         </Grid.Row>
       </Grid>
