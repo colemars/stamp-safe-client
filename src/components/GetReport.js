@@ -60,7 +60,8 @@ const GetReport = props => {
       previousOwners: report.previousOwners,
       price: report.price,
       imageKeys: report.imageKeys,
-      backgroundCheckStatus: report.backgroundCheckStatus
+      backgroundCheckStatus: report.backgroundCheckStatus,
+      linkedReports: report.linkedReports
     });
     setLoading(false);
     setRoute('/stage-report');
