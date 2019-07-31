@@ -56,8 +56,7 @@ const LinkedReportsSegment = props => {
       price,
       imageKeys
     });
-    console.log(result);
-    setToken(result);
+    setToken(result.newAccessToken);
     setLoading(false);
     return result;
   };
@@ -68,9 +67,7 @@ const LinkedReportsSegment = props => {
   };
 
   const handleLinkBuyer = async () => {
-    const newToken = v4();
-    await linkedReportsUpdate(newToken);
-    setToken(newToken);
+    await linkedReportsUpdate();
     setModalOpen(true);
   };
 
