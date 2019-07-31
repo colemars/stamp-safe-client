@@ -49,7 +49,7 @@ const ActionsSegment = props => {
           <Grid.Row
             centered
             columns={3}
-            style={{ padding: '0', paddingBottom: '.6em', paddingTop: '.4em' }}
+            style={{ padding: '0', paddingBottom: '.6em', paddingTop: '.1em' }}
           >
             <Grid.Column>
               <Button style={{ width: '100%' }}>Backup Key</Button>
