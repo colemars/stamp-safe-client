@@ -88,11 +88,12 @@ const StageItem = props => {
         conditionOfItem: condition,
         previousOwners,
         price,
-        imageKeys
+        imageKeys,
+        linkedReports: []
       });
       props.addAccessKey(result.accessKey);
       props.addLinkKey(result.linkKey);
-      props.addFields({ ...props.fields, imageKeys });
+      props.addFields({ ...props.fields, ...{ imageKeys, linkedReports: [] } });
       uploadComplete();
     } catch (e) {
       setLoading(false);
