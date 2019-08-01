@@ -65,10 +65,10 @@ const LinkedReportsSegment = props => {
       imageKeys
     });
     setToken(result.newAccessToken);
-    setLinkedReports([
-      linkedReports,
-      ...[{ status: result.reportStatus, key: result.linkKey }]
-    ]);
+    // setLinkedReports([
+    //   linkedReports,
+    //   ...[{ status: result.reportStatus, key: result.linkKey }]
+    // ]);
     setLoading(false);
     return result;
   };
