@@ -185,13 +185,18 @@ const LinkedReportsSegment = props => {
           }}
         >
           <Grid columns={2} textAlign="left">
-            {linkedReports.slice(0, 2).map(report => (
-              <LinkedReport
-                key={report.key}
-                reportKey={report.key}
-                status={report.status}
-              />
-            ))}
+            {linkedReports.slice(0, 2).map(report => {
+              if (report.key) {
+                return (
+                  <LinkedReport
+                    key={report.key}
+                    reportKey={report.key}
+                    status={report.status}
+                  />
+                );
+              }
+              return null;
+            })}
             <Grid.Row
               style={{
                 padding: '0',
