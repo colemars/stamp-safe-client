@@ -1,11 +1,15 @@
-import React from 'react';
-import { Grid, Header, Image, Segment, Icon } from 'semantic-ui-react';
+import React, { useState } from 'react';
+import { Grid, Header, Image, Segment, Icon, Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import { API } from 'aws-amplify';
 import closeCircle from '../close-circle.png';
 import safeShield from '../shield-check.png';
 import shieldIcon from '../shield-lock.png';
 
 const SecurityVerificationSegment = props => {
+  const [stolenPropertyCheckStatus, setstolenPropertyCheckStatus] = useState(
+    props.details.stolenPropertyCheckStatus
+  );
   const notStartedIcon = (
     <img
       src={closeCircle}
@@ -50,6 +54,21 @@ const SecurityVerificationSegment = props => {
     if (status === 'Safe') return safeIcon;
     return notStartedIcon;
   };
+
+  const getStolenRecord = fields => {
+    return API.post('stage', '/stolen', {
+      body: fields
+    });
+  };
+
+  const handleStolenPropertySearch = async () => {
+    setstolenPropertyCheckStatus('In Progress');
+    const result = await getStolenRecord({
+      serialNumber: props.details.serialNumber
+    });
+    if (result.result === 'Not found') setstolenPropertyCheckStatus('Safe');
+  };
+
   return (
     <Segment.Group style={{ width: '70%', marginLeft: 'auto' }}>
       <Segment>
@@ -108,13 +127,21 @@ const SecurityVerificationSegment = props => {
           >
             <Grid.Column width={9} style={{ paddingLeft: '2em' }}>
               Criminal Record
+              <Icon
+                link={false}
+                name="play circle outline"
+                color="green"
+                disabled={true}
+                style={{ marginLeft: '.2em', transform: 'translateY(.1em)' }}
+                onClick={() => console.log('click')}
+              />
             </Grid.Column>
             <Grid.Column
               width={7}
               textAlign="left"
               style={{ color: '#5F6368' }}
             >
-             {getStatusIcon(props.details.backgroundCheckStatus)}
+              {getStatusIcon(props.details.backgroundCheckStatus)}
               {props.details.backgroundCheckStatus}
             </Grid.Column>
           </Grid.Row>
@@ -125,14 +152,22 @@ const SecurityVerificationSegment = props => {
           >
             <Grid.Column width={9} style={{ paddingLeft: '2em' }}>
               Stolen Property
+              <Icon
+                link={true}
+                name="play circle outline"
+                color="green"
+                disabled={false}
+                style={{ marginLeft: '.2em', transform: 'translateY(.1em)' }}
+                onClick={handleStolenPropertySearch}
+              />
             </Grid.Column>
             <Grid.Column
               width={7}
               textAlign="left"
               style={{ color: '#5F6368' }}
             >
-              {getStatusIcon(props.details.stolenPropertyCheckStatus)}
-              {props.details.stolenPropertyCheckStatus}
+              {getStatusIcon(stolenPropertyCheckStatus)}
+              {stolenPropertyCheckStatus}
             </Grid.Column>
           </Grid.Row>
           {/* end own component  */}
@@ -142,6 +177,14 @@ const SecurityVerificationSegment = props => {
           >
             <Grid.Column width={9} style={{ paddingLeft: '2em' }}>
               Price Alert
+              <Icon
+                link={false}
+                name="play circle outline"
+                color="green"
+                disabled={true}
+                style={{ marginLeft: '.2em', transform: 'translateY(.1em)' }}
+                onClick={() => console.log('click')}
+              />
             </Grid.Column>
             <Grid.Column
               width={7}
