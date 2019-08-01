@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState, Fragment } from 'react';
 import { Grid, Header, Image, Segment, Icon } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
@@ -7,8 +8,10 @@ import closeCircle from '../close-circle.png';
 import safeShield from '../shield-check.png';
 import shieldIcon from '../shield-lock.png';
 import { addFields } from '../actions/index';
+import CandidateInformationModal from './CandidateInformationModal';
 
 const SecurityVerificationSegment = props => {
+  const [backgroundCheckModalOpen, setBackgroundCheckModalOpen] = useState();
   const notStartedIcon = (
     <img
       src={closeCircle}
@@ -73,12 +76,17 @@ const SecurityVerificationSegment = props => {
         ...props.fields,
         stolenPropertyCheckStatus: 'Safe'
       });
-      props.updateStatuses();
+      return props.updateStatuses({ stolenPropertyCheckStatus: 'Safe' });
     }
   };
 
   return (
     <Fragment>
+      <CandidateInformationModal
+        open={backgroundCheckModalOpen}
+        setOpen={setBackgroundCheckModalOpen}
+        updateStatuses={props.updateStatuses}
+      />
       <Segment.Group style={{ width: '70%', marginLeft: 'auto' }}>
         <Segment>
           <Grid stackable columns={4}>
@@ -141,12 +149,14 @@ const SecurityVerificationSegment = props => {
               <Grid.Column width={9} style={{ paddingLeft: '2em' }}>
                 Criminal Record
                 <Icon
-                  link={false}
+                  link={props.details.backgroundCheckStatus === 'Not Started'}
                   name="play circle outline"
                   color="green"
-                  disabled={true}
+                  disabled={
+                    !(props.details.backgroundCheckStatus === 'Not Started')
+                  }
                   style={{ marginLeft: '.2em', transform: 'translateY(.1em)' }}
-                  onClick={() => console.log('click')}
+                  onClick={() => setBackgroundCheckModalOpen(true)}
                 />
               </Grid.Column>
               <Grid.Column
@@ -170,10 +180,14 @@ const SecurityVerificationSegment = props => {
               <Grid.Column width={9} style={{ paddingLeft: '2em' }}>
                 Stolen Property
                 <Icon
-                  link={true}
+                  link={
+                    props.details.stolenPropertyCheckStatus === 'Not Started'
+                  }
                   name="play circle outline"
                   color="green"
-                  disabled={false}
+                  disabled={
+                    !(props.details.stolenPropertyCheckStatus === 'Not Started')
+                  }
                   style={{ marginLeft: '.2em', transform: 'translateY(.1em)' }}
                   onClick={handleStolenPropertySearch}
                 />
@@ -233,7 +247,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addFields: fields => dispatch(addFields(fields)),
+  addFields: fields => dispatch(addFields(fields))
 });
 
 export default connect(
