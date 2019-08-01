@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { Fragment, useState } from 'react';
 import { Grid, Header, Icon } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import {
   Grid,
@@ -37,6 +38,7 @@ const imageStyle = {
   height: 'auto',
   margin: 'auto',
   display: 'block',
+  // eslint-disable-next-line no-dupe-keys
   border: 'none'
 };
 
