@@ -9,7 +9,7 @@ import {
   Modal
 } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
-import v4 from "uuid";
+import v4 from 'uuid';
 import './ReviewItemStaging.css';
 import { API } from 'aws-amplify';
 import { connect } from 'react-redux';
