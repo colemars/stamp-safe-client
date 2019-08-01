@@ -25,7 +25,7 @@ const LandingButtons = () => {
       </Grid.Row>
       <span className="link-block">
         Or{' '}
-        <a href="123" style={{ color: 'inherit' }}>
+        <a href="/get-report" style={{ color: 'inherit' }}>
           Get Report
         </a>
       </span>
