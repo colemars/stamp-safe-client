@@ -89,7 +89,8 @@ const StageItem = props => {
         previousOwners,
         price,
         imageKeys,
-        linkedReports: []
+        linkedReports: [],
+        statuses: [{}]
       });
       props.addAccessKey(result.accessKey);
       props.addLinkKey(result.linkKey);
