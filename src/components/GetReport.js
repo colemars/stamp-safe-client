@@ -62,7 +62,7 @@ const GetReport = props => {
       price: item.price,
       imageKeys: item.imageKeys,
       backgroundCheckStatus: item.backgroundCheckStatus,
-      linkeditems: item.linkeditems,
+      linkedReports: item.linkedReports,
       accessKey: item.accessKey,
       statuses
     });
