@@ -22,7 +22,7 @@ const LinkedReportsSegment = props => {
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState();
   const [linkedReports, setLinkedReports] = useState(
-    props.fields.linkedReports
+    props.fields.statuses || []
   );
   const {
     serialNumber,
@@ -35,12 +35,6 @@ const LinkedReportsSegment = props => {
     imageKeys
   } = props.fields;
 
-  const listLinkedReports = () => {
-    props.fields.linkedReports.forEach(report => {
-      setLinkedReports([linkedReports, ...report]);
-    });
-  };
-
   const createReport = fields => {
     return API.post('stage', '/report', {
       body: fields
@@ -49,8 +43,6 @@ const LinkedReportsSegment = props => {
 
   const linkedReportsUpdate = async () => {
     setLoading(true);
-    // const stage = await API.get('stage', `/stage/${props.stageAccessKey}`);
-    console.log(props.accessKey);
     const result = await createReport({
       typeId: '101',
       linkedReport: props.linkKey,
@@ -65,10 +57,8 @@ const LinkedReportsSegment = props => {
       imageKeys
     });
     setToken(result.newAccessToken);
-    // setLinkedReports([
-    //   linkedReports,
-    //   ...[{ status: result.reportStatus, key: result.linkKey }]
-    // ]);
+    const linkedReport = [{ status: result.reportStatus, key: result.linkKey }];
+    setLinkedReports([...linkedReports, ...linkedReport]);
     setLoading(false);
     return result;
   };
@@ -195,13 +185,13 @@ const LinkedReportsSegment = props => {
           }}
         >
           <Grid columns={2} textAlign="left">
-            {/* linked reports */}
-            {linkedReports}
-            <LinkedReport reportKey="1234-MKa-123A" status="Not Started" />
-            <LinkedReport
-              reportKey="zsJAasj-dasdA-ajdM3"
-              status="In Progress"
-            />
+            {linkedReports.slice(0, 2).map(report => (
+              <LinkedReport
+                key={report.key}
+                reportKey={report.key}
+                status={report.status}
+              />
+            ))}
             <Grid.Row
               style={{
                 padding: '0',
