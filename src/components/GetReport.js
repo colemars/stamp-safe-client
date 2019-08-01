@@ -72,10 +72,8 @@ const GetReport = props => {
   };
 
   const handleAccessKeySubmit = async () => {
-    console.log("access ")
     const report = await API.get('stage', `/report/${accessKey}`);
-    console.log(report);
-    if (report.item.linkedReports) {
+    if (report.item) {
       handleSellerReport(report.item, report.statuses);
     }
     if (report.linkedReport) {
