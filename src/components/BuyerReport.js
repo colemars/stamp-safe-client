@@ -45,7 +45,7 @@ const BuyerReport = props => {
     });
   };
 
-  const updateStatuses = async status => {
+  const updateStatuses = async (status = {}) => {
     const params = {};
     if (status.backgroundCheckStatus)
       params.backgroundCheckStatus = status.backgroundCheckStatus;
