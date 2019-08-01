@@ -24,7 +24,5 @@ export default async function configureAmplify() {
     }
   });
 
-  const anonymousUser = await Auth.currentCredentials();
-
-  console.log(anonymousUser);
+  await Auth.currentCredentials();
 }
