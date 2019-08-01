@@ -51,29 +51,32 @@ const GetReport = props => {
     setRoute('/buyer-report');
   };
 
-  const handleSellerReport = report => {
+  const handleSellerReport = (item, statuses) => {
     props.addFields({
-      serialNumber: report.serialNumber,
-      make: report.make,
-      model: report.model,
-      yearManufactored: report.yearManufactored,
-      condition: report.conditionOfItem,
-      previousOwners: report.previousOwners,
-      price: report.price,
-      imageKeys: report.imageKeys,
-      backgroundCheckStatus: report.backgroundCheckStatus,
-      linkedReports: report.linkedReports,
-      accessKey: report.accessKey
+      serialNumber: item.serialNumber,
+      make: item.make,
+      model: item.model,
+      yearManufactored: item.yearManufactored,
+      condition: item.conditionOfItem,
+      previousOwners: item.previousOwners,
+      price: item.price,
+      imageKeys: item.imageKeys,
+      backgroundCheckStatus: item.backgroundCheckStatus,
+      linkeditems: item.linkeditems,
+      accessKey: item.accessKey,
+      statuses
     });
-    props.addAccessKey(report.accessKey);
+    props.addAccessKey(item.accessKey);
     setLoading(false);
     setRoute('/stage-report');
   };
 
   const handleAccessKeySubmit = async () => {
+    console.log("access ")
     const report = await API.get('stage', `/report/${accessKey}`);
-    if (report.linkedReports) {
-      handleSellerReport(report);
+    console.log(report);
+    if (report.item.linkedReports) {
+      handleSellerReport(report.item, report.statuses);
     }
     if (report.linkedReport) {
       handleBuyerReport(report);
