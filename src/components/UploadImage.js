@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { Grid, Header, Button, Divider, Icon } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';

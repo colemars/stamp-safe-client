@@ -78,6 +78,7 @@ const SecurityVerificationSegment = props => {
       });
       return props.updateStatuses({ stolenPropertyCheckStatus: 'Safe' });
     }
+    return props.updateStatuses({ stolenPropertyCheckStatus: 'Stolen' });
   };
 
   return (
@@ -218,7 +219,6 @@ const SecurityVerificationSegment = props => {
                   color="green"
                   disabled={true}
                   style={{ marginLeft: '.2em', transform: 'translateY(.1em)' }}
-                  onClick={() => console.log('click')}
                 />
               </Grid.Column>
               <Grid.Column

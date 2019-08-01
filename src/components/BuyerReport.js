@@ -51,11 +51,7 @@ const BuyerReport = props => {
       params.backgroundCheckStatus = status.backgroundCheckStatus;
     if (status.priceAlertStatus)
       params.priceAlertStatus = status.priceAlertStatus;
-    try {
-      await sendUpdate(params);
-    } catch (e) {
-      console.log(e);
-    }
+    await sendUpdate(params);
   };
 
   if (props.fields.length === 0) return <Redirect push to="/get-report" />;

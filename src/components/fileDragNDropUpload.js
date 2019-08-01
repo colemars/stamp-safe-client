@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useMemo, useCallback } from 'react';
 import { connect } from 'react-redux';
 import { useDropzone } from 'react-dropzone';

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import {
   Grid,
@@ -24,10 +25,9 @@ const ActionsSegment = props => {
 
   const handleClickDeleteButton = async () => {
     setLoading(true);
-    const result = await deleteReport({
+    await deleteReport({
       typeId: props.reportType
     });
-    console.log(result)
     setLoading(false);
     setRoute('/get-report');
   };

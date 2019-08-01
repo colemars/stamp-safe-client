@@ -1,6 +1,6 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { Grid, Icon } from 'semantic-ui-react';
-import PropTypes from 'prop-types';
 import closeCircle from '../close-circle.png';
 import safeShield from '../shield-check.png';
 

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState, Fragment } from 'react';
 import { Grid, Input, Header, Button, Dimmer, Icon } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
@@ -18,15 +19,9 @@ const GetReport = props => {
   const [secureToken, setSecureToken] = useState(null);
   const [route, setRoute] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [errorModalOpen, setErrorModalOpen] = useState(false);
-  const [loadingComplete, setLoadingComplete] = useState(false);
 
   const validateForm = () => {
     return (accessKey || secureToken) && !(accessKey && secureToken);
-  };
-
-  const handleError = () => {
-    setErrorModalOpen(true);
   };
 
   const handleBuyerReport = report => {
@@ -85,7 +80,7 @@ const GetReport = props => {
     const report = await API.get('stage', `/authorize/${secureToken}`);
     if (report) {
       handleBuyerReport(report);
-    } else handleError();
+    }
   };
 
   const handleSubmit = () => {
@@ -105,13 +100,7 @@ const GetReport = props => {
     <Button fluid style={disabledButtonStyle} content="Submit" />
   );
 
-  const dimmerIcon = loadingComplete ? (
-    <Icon
-      name="check circle outline"
-      size="huge"
-      style={{ color: '#2AC940' }}
-    />
-  ) : (
+  const dimmerIcon = (
     <Icon loading name="spinner" size="huge" style={{ color: '#3CA1AC' }} />
   );
 

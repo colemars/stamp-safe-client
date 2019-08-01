@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState, useRef } from 'react';
 import { Input, Ref } from 'semantic-ui-react';
 import { connect } from 'react-redux';
@@ -31,28 +32,21 @@ const PasteImageInput = props => {
       .then(res => res.blob())
       .then(blob => {
         if (config.file.allowedFileSize < blob.size) {
-          console.log(
-            'Sorry, URL failed to upload.',
-            'Error: size limit exceeded'
-          );
           setUrlLoading(false);
           setImageUrl('');
           return;
         }
         if (config.file.allowedFileTypes.indexOf(blob.type) === -1) {
-          console.log('Sorry, URL failed to upload.', 'Error: wrong file type');
           setUrlLoading(false);
           setImageUrl('');
           return;
         }
-        console.log('success');
         setUrlLoading(false);
         setImageUrl('');
         const imageFile = convertBlob(blob, v4());
         props.addImage(imageFile);
       })
-      .catch(error => {
-        console.log(error);
+      .catch(() => {
         setUrlLoading(false);
         setImageUrl('');
       });
