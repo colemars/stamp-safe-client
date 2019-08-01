@@ -16,7 +16,7 @@ export default async function configureAmplify() {
     API: {
       endpoints: [
         {
-          name: 'stage',
+          name: 'report',
           endpoint: config.apiGateway.URL,
           region: config.apiGateway.REGION
         }
