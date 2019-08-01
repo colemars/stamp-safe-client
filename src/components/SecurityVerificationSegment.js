@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
-import { Grid, Header, Image, Segment, Icon, Button } from 'semantic-ui-react';
+import React, { useState, Fragment } from 'react';
+import { Grid, Header, Image, Segment, Icon } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { API } from 'aws-amplify';
+import { connect } from 'react-redux';
 import closeCircle from '../close-circle.png';
 import safeShield from '../shield-check.png';
 import shieldIcon from '../shield-lock.png';
+import { addFields } from '../actions/index';
 
 const SecurityVerificationSegment = props => {
-  const [stolenPropertyCheckStatus, setstolenPropertyCheckStatus] = useState(
-    props.details.stolenPropertyCheckStatus
-  );
   const notStartedIcon = (
     <img
       src={closeCircle}
@@ -62,143 +61,166 @@ const SecurityVerificationSegment = props => {
   };
 
   const handleStolenPropertySearch = async () => {
-    setstolenPropertyCheckStatus('In Progress');
+    props.addFields({
+      ...props.fields,
+      stolenPropertyCheckStatus: 'In Progress'
+    });
     const result = await getStolenRecord({
       serialNumber: props.details.serialNumber
     });
-    if (result.result === 'Not found') setstolenPropertyCheckStatus('Safe');
+    if (result.result === 'Not found') {
+      props.addFields({
+        ...props.fields,
+        stolenPropertyCheckStatus: 'Safe'
+      });
+      props.updateStatuses();
+    }
   };
 
   return (
-    <Segment.Group style={{ width: '70%', marginLeft: 'auto' }}>
-      <Segment>
-        <Grid stackable columns={4}>
-          <Grid.Column width={12}>
-            <Header
-              textAlign="left"
-              as="h3"
+    <Fragment>
+      <Segment.Group style={{ width: '70%', marginLeft: 'auto' }}>
+        <Segment>
+          <Grid stackable columns={4}>
+            <Grid.Column width={12}>
+              <Header
+                textAlign="left"
+                as="h3"
+                style={{
+                  padding: '1em',
+                  paddingTop: '1.5em'
+                }}
+              >
+                <Header.Content>Security Verification</Header.Content>
+                <Header.Subheader style={{ paddingTop: '1em' }}>
+                  Ensure each time is
+                  <img
+                    src={safeShield}
+                    style={{
+                      width: '1em',
+                      height: '1em',
+                      marginLeft: '.3em',
+                      marginBottom: '-.1em'
+                    }}
+                    alt=""
+                  />
+                  Safe before proceeding
+                </Header.Subheader>
+              </Header>
+            </Grid.Column>
+            <Grid.Column width={4} textAlign="left">
+              <Image
+                src={shieldIcon}
+                style={{
+                  marginLeft: '-1em',
+                  paddingTop: '.5em',
+                  maxWidth: '6em',
+                  height: 'auto'
+                }}
+              />
+            </Grid.Column>
+          </Grid>
+        </Segment>
+        <Segment
+          style={{
+            fontFamily: 'Roboto',
+            fontSize: '1.1rem',
+            paddingTop: '1.5em',
+            paddingBottom: '1.5em'
+          }}
+        >
+          <Grid columns={2} textAlign="left">
+            {/* own component eventually */}
+            <Grid.Row
               style={{
-                padding: '1em',
-                paddingTop: '1.5em'
-              }}
-            >
-              <Header.Content>Security Verification</Header.Content>
-              <Header.Subheader style={{ paddingTop: '1em' }}>
-                Ensure each time is
-                <img
-                  src={safeShield}
-                  style={{
-                    width: '1em',
-                    height: '1em',
-                    marginLeft: '.3em',
-                    marginBottom: '-.1em'
-                  }}
-                  alt=""
-                />
-                Safe before proceeding
-              </Header.Subheader>
-            </Header>
-          </Grid.Column>
-          <Grid.Column width={4} textAlign="left">
-            <Image
-              src={shieldIcon}
-              style={{
-                marginLeft: '-1em',
+                padding: '0',
                 paddingTop: '.5em',
-                maxWidth: '6em',
-                height: 'auto'
+                paddingBottom: '.5em'
               }}
-            />
-          </Grid.Column>
-        </Grid>
-      </Segment>
-      <Segment
-        style={{
-          fontFamily: 'Roboto',
-          fontSize: '1.1rem',
-          paddingTop: '1.5em',
-          paddingBottom: '1.5em'
-        }}
-      >
-        <Grid columns={2} textAlign="left">
-          {/* own component eventually */}
-          <Grid.Row
-            style={{ padding: '0', paddingTop: '.5em', paddingBottom: '.5em' }}
-          >
-            <Grid.Column width={9} style={{ paddingLeft: '2em' }}>
-              Criminal Record
-              <Icon
-                link={false}
-                name="play circle outline"
-                color="green"
-                disabled={true}
-                style={{ marginLeft: '.2em', transform: 'translateY(.1em)' }}
-                onClick={() => console.log('click')}
-              />
-            </Grid.Column>
-            <Grid.Column
-              width={7}
-              textAlign="left"
-              style={{ color: '#5F6368' }}
             >
-              {getStatusIcon(props.details.backgroundCheckStatus)}
-              {props.details.backgroundCheckStatus}
-            </Grid.Column>
-          </Grid.Row>
-          {/* end own component  */}
-          {/* own component eventually */}
-          <Grid.Row
-            style={{ padding: '0', paddingTop: '.5em', paddingBottom: '.5em' }}
-          >
-            <Grid.Column width={9} style={{ paddingLeft: '2em' }}>
-              Stolen Property
-              <Icon
-                link={true}
-                name="play circle outline"
-                color="green"
-                disabled={false}
-                style={{ marginLeft: '.2em', transform: 'translateY(.1em)' }}
-                onClick={handleStolenPropertySearch}
-              />
-            </Grid.Column>
-            <Grid.Column
-              width={7}
-              textAlign="left"
-              style={{ color: '#5F6368' }}
+              <Grid.Column width={9} style={{ paddingLeft: '2em' }}>
+                Criminal Record
+                <Icon
+                  link={false}
+                  name="play circle outline"
+                  color="green"
+                  disabled={true}
+                  style={{ marginLeft: '.2em', transform: 'translateY(.1em)' }}
+                  onClick={() => console.log('click')}
+                />
+              </Grid.Column>
+              <Grid.Column
+                width={7}
+                textAlign="left"
+                style={{ color: '#5F6368' }}
+              >
+                {getStatusIcon(props.details.backgroundCheckStatus)}
+                {props.details.backgroundCheckStatus}
+              </Grid.Column>
+            </Grid.Row>
+            {/* end own component  */}
+            {/* own component eventually */}
+            <Grid.Row
+              style={{
+                padding: '0',
+                paddingTop: '.5em',
+                paddingBottom: '.5em'
+              }}
             >
-              {getStatusIcon(stolenPropertyCheckStatus)}
-              {stolenPropertyCheckStatus}
-            </Grid.Column>
-          </Grid.Row>
-          {/* end own component  */}
-          {/* own component eventually */}
-          <Grid.Row
-            style={{ padding: '0', paddingTop: '.5em', paddingBottom: '.5em' }}
-          >
-            <Grid.Column width={9} style={{ paddingLeft: '2em' }}>
-              Price Alert
-              <Icon
-                link={false}
-                name="play circle outline"
-                color="green"
-                disabled={true}
-                style={{ marginLeft: '.2em', transform: 'translateY(.1em)' }}
-                onClick={() => console.log('click')}
-              />
-            </Grid.Column>
-            <Grid.Column
-              width={7}
-              textAlign="left"
-              style={{ color: '#5F6368' }}
+              <Grid.Column width={9} style={{ paddingLeft: '2em' }}>
+                Stolen Property
+                <Icon
+                  link={true}
+                  name="play circle outline"
+                  color="green"
+                  disabled={false}
+                  style={{ marginLeft: '.2em', transform: 'translateY(.1em)' }}
+                  onClick={handleStolenPropertySearch}
+                />
+              </Grid.Column>
+              <Grid.Column
+                width={7}
+                textAlign="left"
+                style={{ color: '#5F6368' }}
+              >
+                {getStatusIcon(props.details.stolenPropertyCheckStatus)}
+                {props.details.stolenPropertyCheckStatus}
+              </Grid.Column>
+            </Grid.Row>
+            {/* end own component  */}
+            {/* own component eventually */}
+            <Grid.Row
+              style={{
+                padding: '0',
+                paddingTop: '.5em',
+                paddingBottom: '.5em'
+              }}
             >
-              {getStatusIcon(props.details.priceAlertStatus)}
-              {props.details.priceAlertStatus}
-            </Grid.Column>
-          </Grid.Row>
-          {/* end own component  */}
-        </Grid>
-      </Segment>
-    </Segment.Group>
+              <Grid.Column width={9} style={{ paddingLeft: '2em' }}>
+                Price Alert
+                <Icon
+                  link={false}
+                  name="play circle outline"
+                  color="green"
+                  disabled={true}
+                  style={{ marginLeft: '.2em', transform: 'translateY(.1em)' }}
+                  onClick={() => console.log('click')}
+                />
+              </Grid.Column>
+              <Grid.Column
+                width={7}
+                textAlign="left"
+                style={{ color: '#5F6368' }}
+              >
+                {getStatusIcon(props.details.priceAlertStatus)}
+                {props.details.priceAlertStatus}
+              </Grid.Column>
+            </Grid.Row>
+            {/* end own component  */}
+          </Grid>
+        </Segment>
+      </Segment.Group>
+    </Fragment>
   );
 };
 
@@ -206,4 +228,15 @@ SecurityVerificationSegment.propTypes = {
   details: PropTypes.any.isRequired
 };
 
-export default SecurityVerificationSegment;
+const mapStateToProps = state => ({
+  fields: state.fields.fields
+});
+
+const mapDispatchToProps = dispatch => ({
+  addFields: fields => dispatch(addFields(fields)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SecurityVerificationSegment);
