@@ -59,7 +59,15 @@ const LinkedReport = props => {
         paddingBottom: '.5em'
       }}
     >
-      <Grid.Column width={9} style={{ paddingLeft: '2em' }}>
+      <Grid.Column
+        width={9}
+        style={{
+          paddingLeft: '2em',
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis'
+        }}
+      >
         {props.reportKey}
       </Grid.Column>
       <Grid.Column width={7} textAlign="left" style={{ color: '#5F6368' }}>
