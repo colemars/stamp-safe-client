@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import { Grid, Input, Header, Button, Dimmer, Icon } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 import './GetReport.css';
@@ -120,55 +120,68 @@ const GetReport = props => {
   }
 
   return (
-    <div className="stageItem">
-      <Dimmer active={loading} page>
-        {dimmerIcon}
-      </Dimmer>
-      <Grid textAlign="center" columns={2} style={{ paddingTop: '3em' }}>
-        <Grid.Row>
-          <Grid.Column>
-            <Header as="h1">StampSafe Report</Header>
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row className="stageItemFooterRow">
-          <Grid.Column>
-            <div id="stageItemFooter" style={{ width: '50%', margin: 'auto' }}>
-              Input your access key or one-time authorization token to get your
-              report
-            </div>
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row>
-          <Grid.Column>
-            <div className="itemInputBox">
-              <Input
-                id="accessKey"
-                className="itemInput"
-                onChange={e => setAccessKey(e.target.value)}
-                transparent
-                placeholder="Access key"
-              />
-            </div>
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row>
-          <Grid.Column>
-            <div className="itemInputBox">
-              <Input
-                id="secureToken"
-                className="itemInput"
-                onChange={e => setSecureToken(e.target.value)}
-                transparent
-                placeholder="Authorization token"
-              />
-            </div>
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row>
-          <Grid.Column>{button}</Grid.Column>
-        </Grid.Row>
-      </Grid>
-    </div>
+    <Fragment>
+      <Icon
+        link
+        name="times circle outline"
+        size="big"
+        color="grey"
+        style={{ position: 'absolute', left: '70vw', top: '6vh' }}
+        onClick={() => setRoute('/')}
+      />
+      <div className="stageItem">
+        <Dimmer active={loading} page>
+          {dimmerIcon}
+        </Dimmer>
+        <Grid textAlign="center" columns={2} style={{ paddingTop: '3em' }}>
+          <Grid.Row>
+            <Grid.Column>
+              <Header as="h1">StampSafe Report</Header>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row className="stageItemFooterRow">
+            <Grid.Column>
+              <div
+                id="stageItemFooter"
+                style={{ width: '50%', margin: 'auto' }}
+              >
+                Input your access key or one-time authorization token to get
+                your report
+              </div>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column>
+              <div className="itemInputBox">
+                <Input
+                  id="accessKey"
+                  className="itemInput"
+                  onChange={e => setAccessKey(e.target.value)}
+                  transparent
+                  placeholder="Access key"
+                />
+              </div>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column>
+              <div className="itemInputBox">
+                <Input
+                  id="secureToken"
+                  className="itemInput"
+                  onChange={e => setSecureToken(e.target.value)}
+                  transparent
+                  placeholder="Authorization token"
+                />
+              </div>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column>{button}</Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </div>
+    </Fragment>
   );
 };
 
